@@ -1,5 +1,13 @@
 <template>
   <div>
+    <div class="row g-0 m-2"> 
+        <div class="col-md-6">
+            <button class="btn btn-primary ms-2 mb-2 float-start" style="width:200px">Total: {{ total }}</button>
+        </div>
+        <div class="col-md-6 text-end">
+            <CartVue :cart="cart"></CartVue>
+        </div>
+    </div>
         <div class="row row-cols-1 row-cols-md-4 g-4">
             <div class="col" v-for="(product, index) in products" :key="index">
                 <div class="card h-100" >
@@ -9,7 +17,9 @@
                         <p class="card-text">{{ product.description.substring(0, 150) }}</p>
                     </div>
                     <div class="card-footer text-center fs-5 p-1">
+                        <button class="btn btn-success btn-sm float-start" v-on:click="addToCart(product.id)">+</button>
                         <small class="text-primary">Price: ${{ product.price }}</small>
+                        <button class="btn btn-danger btn-sm float-end" v-on:click="removeFromCart(product.id)">-</button>
                     </div>
                 </div>
             </div>
@@ -21,11 +31,17 @@
 
 import axios from "axios";
 
-export default {
+import CartVue from '../../components/Cart.vue';
 
+export default {
+    name: 'ProductIndex',
+    components: {
+        CartVue
+    },
     data() {
         return {
             products: [],
+            cart:[]
         }
     },
     mounted() {
@@ -38,6 +54,21 @@ export default {
                 console.log(error)
             })
     },
+    methods:{
+        addToCart(cartId){
+            console.log(cartId);
+            this.cart.push(this.products.find(product => product.id === cartId));
+        },
+        removeFromCart(cartId){
+            let position = this.cart.findIndex(product => product.id === cartId);
+            this.cart.splice(position, 1);
+        }
+    },
+    computed:{
+        total(){
+            return this.cart.reduce((t, product) => t + product.price, 0);
+        }
+    }
 }
 
 </script>
