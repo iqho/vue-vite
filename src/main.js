@@ -7,7 +7,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 
 import router from './router';
+import store from './store';
+
 
   createApp(App)
   .use(router)
+  .use(store)
   .mount('#app')
