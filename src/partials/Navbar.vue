@@ -22,7 +22,7 @@
                 <router-link to="/contact" class="nav-link" active-class="active">Contact</router-link>
                 </li>
             </ul>
-            
+             <button type="button" @click="$store.state.count++" class="btn btn-danger">Count is: {{ $store.state.count }}</button>
             <div class="btn-group">
                 <a class="btn btn-outline-danger position-relative" id="dropdownMenuClickableInside" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
                     <i class="fa-solid fa-cart-shopping"></i>
@@ -41,17 +41,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- <tr v-for="(product, index) in cart">
+                            <tr v-for="product in cartData" :key="product.id">
                                 <td>{{ product.title }}</td>
                                 <td>${{ product.price }}</td>
                                 <td>{{ product.quantity }}</td>
                                 <td>${{ product.price * product.quantity }}</td>
-                            </tr> -->
-                            <tr>
-                                <td>Samsung Mobile</td>
-                                <td>$21000</td>
-                                <td>2</td>
-                                <td>$42000</td>
                             </tr>
                         </tbody>
                         <tfoot>
@@ -73,13 +67,32 @@
 
 <script>
     export default {
-    props: {
-        cart:{
-            type:Array,
-            required: true
+        props: {
+            cart:{
+                type:Array,
+                required: true
+            }
+        },
+        data() {
+            return {
+                cartData: []
+            }
+        },
+        methods: {
+            cartTotal() {
+                return this.cart.reduce((total, product) => {
+                    return total + (product.price * product.quantity);
+                }, 0);
+            }
+        },
+        mounted() {
+                const cartData = localStorage.getItem('cart');
+                this.cartData = cartData ? JSON.parse(cartData) : [];
+                console.log(cartData);
+            // localStorage.removeItem('cart');
+            },
         }
-    }
-    }
+
 </script>
 
 <style>
@@ -88,3 +101,4 @@
     border-radius: 5px 5px 0 0;
 }
 </style>
+

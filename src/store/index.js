@@ -2,7 +2,8 @@ import { createStore } from 'vuex'
 import axios from 'axios'
 export default createStore({
     state: {
-        products: []
+        products: [],
+        count: 0,
     },
 
     
@@ -22,5 +23,5 @@ export default createStore({
       SET_PRODUCTS(state, products) {
           state.products = products
       },
-    }
+    },
 })
