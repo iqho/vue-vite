@@ -23,21 +23,63 @@
                 </li>
             </ul>
             
-  <button type="button" @click="$store.state.count++" class="btn btn-danger">Count is: {{ $store.state.count }}</button>
+            <div class="btn-group">
+                <a class="btn btn-outline-danger position-relative" id="dropdownMenuClickableInside" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        <!-- {{ cart.length }} -->
+                    </span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end p-2" style="width:500px">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- <tr v-for="(product, index) in cart">
+                                <td>{{ product.title }}</td>
+                                <td>${{ product.price }}</td>
+                                <td>{{ product.quantity }}</td>
+                                <td>${{ product.price * product.quantity }}</td>
+                            </tr> -->
+                            <tr>
+                                <td>Samsung Mobile</td>
+                                <td>$21000</td>
+                                <td>2</td>
+                                <td>$42000</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3" class="text-end"><strong>Total</strong></td>
+                                <td><strong>$42000</strong></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            <!-- <button type="button" @click="$store.state.count++" class="btn btn-danger ms-4">Count is: {{ $store.state.count }}</button> -->
 
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+
             </div>
         </div>
     </nav>
 </template>
 
 <script>
-export default {
-
-}
+    export default {
+    props: {
+        cart:{
+            type:Array,
+            required: true
+        }
+    }
+    }
 </script>
 
 <style>
