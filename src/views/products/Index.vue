@@ -9,12 +9,12 @@
         </div>
     </div>
         <div class="row row-cols-1 row-cols-md-4 g-4">
-            <div class="col" v-for="(product, index) in $store.state.products" :key="index">
+            <div class="col" v-for="(product, index) in products" :key="index">
                 <div class="card h-100" >
-                    <!-- <img :src="product.image" class="card-img-top" :alt="product.title" style="height:250px"> -->
+                    <img :src="product.image" class="card-img-top" :alt="product.title" style="height:250px">
                     <div class="card-body">
-                        <h5 class="card-title">{{ product.name }}</h5>
-                        <!-- <p class="card-text">{{ product.description.substring(0, 150) }}</p> -->
+                        <h5 class="card-title">{{ product.title }}</h5>
+                        <p class="card-text">{{ product.description.substring(0, 150) }}</p>
                     </div>
                     <div class="card-footer text-center fs-5 p-1">
                         <button class="btn btn-success btn-sm float-start" v-on:click="addToCart(product.id)">+</button>
@@ -28,51 +28,17 @@
 </template>
 
 <script>
-
-import axios from "axios";
-
-import Cart from '../../components/Cart.vue';
-
 export default {
-    name: 'ProductIndex',
-    components: {
-        Cart
-    },
-    data() {
-        return {
-            products: [],
-            cart:[]
+
+    computed: {
+        products() {
+            return this.$store.state.products;
         }
     },
+    
     mounted() {
-        axios.get('https://fakestoreapi.com/products')
-            .then(response => {
-                this.products = response.data;
-                console.log(this.products);
-            })
-            .catch(error => {
-                console.log(error)
-            })
-    },
-    methods:{
-        addToCart(cartId){
-            console.log(cartId);
-            this.cart.push(this.products.find(product => product.id === cartId));
-        },
-        removeFromCart(cartId){
-            let position = this.cart.findIndex(product => product.id === cartId);
-            this.cart.splice(position, 1);
-        }
-    },
-    computed:{
-        total(){
-            return this.cart.reduce((t, product) => t + product.price, 0);
-        }
+        this.$store.dispatch("fetchProducts");
     }
+
 }
-
 </script>
-
-<style>
-
-</style>
