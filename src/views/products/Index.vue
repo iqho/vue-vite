@@ -8,8 +8,9 @@
             <Cart :cart="cart"></Cart>
         </div>
     </div>
+        <div class="row p-2 mb-2"><div class="col-12 text-center border-bottom border-gray"><h1>{{ pageTitle }}</h1></div></div>
         <div class="row row-cols-1 row-cols-md-4 g-4">
-            <div class="col" v-for="(product, index) in $store.state.products" :key="index">
+            <div class="col" v-for="(product, index) in products" :key="index">
                 <div class="card h-100" >
                     <img :src="product.image" class="card-img-top" :alt="product.title" style="height:250px">
                     <div class="card-body">
@@ -33,37 +34,32 @@ export default {
     data() {
         return {
             cart: [],
-            total: 0,
-            cartData: [],
         }
     },
 
     components: {
         Cart
     },
+
+    computed: {
+        pageTitle() {
+            return this.$store.getters.pageTitle;
+        },
+
+        products() {
+            return this.$store.getters.products;
+        }
+    },
     
     methods: {
         addToCart(id) {
-            this.cart.push(id);
-            this.total += this.$store.state.products.find(product => product.id === id).price;
-
-            this.cartData.push(this.$store.state.products.find(product => product.id === id));
-            localStorage.setItem('cart', JSON.stringify(this.cartData));
-        },
-        removeFromCart(id) {
-            this.cart.splice(this.cart.indexOf(id), 1);
-            this.total -= this.$store.state.products.find(product => product.id === id).price;
+            this.$store.dispatch("addItem", id);
         }
-        
+                
     },
 
     mounted() {
             this.$store.dispatch("fetchProducts");
-    
-            const cartData = localStorage.getItem('cart');
-            this.cartData = cartData ? JSON.parse(cartData) : [];
-            console.log(cartData);
-           // localStorage.removeItem('cart');
         },
 }
 </script>

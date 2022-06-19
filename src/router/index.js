@@ -4,6 +4,7 @@ import Home from '../views/Index.vue';
 import Products from '../views/products/Index.vue';
 import About from '../pages/About.vue';
 import Contact from '../pages/Contact.vue';
+import CartPage from '../pages/CartPage.vue';
 
 const routes = [
   {
@@ -16,6 +17,12 @@ const routes = [
     path: "/products",
     name: "Products",
     component: Products,
+  },
+
+  {
+    path: "/cart",
+    name: "CartPage",
+    component: CartPage,
   },
 
   {
