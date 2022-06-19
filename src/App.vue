@@ -7,7 +7,7 @@
     <div class="col-12 border-bottom border-gray">
       <Navbar></Navbar>
     </div>
-    <div class="col-12 p-3">
+    <div class="col-12 p-3 mt-5">
       <router-view></router-view>
     </div>
   </div>

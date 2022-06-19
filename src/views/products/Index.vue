@@ -5,7 +5,6 @@
             <button class="btn btn-primary ms-2 mb-2 float-start" style="width:200px">Total: {{ total }}</button>
         </div>
         <div class="col-md-6 text-end">
-            <Cart :cart="cart"></Cart>
         </div>
     </div>
         <div class="row p-2 mb-2"><div class="col-12 text-center border-bottom border-gray"><h1>{{ pageTitle }}</h1></div></div>
@@ -29,16 +28,11 @@
 </template>
 
 <script>
-import Cart from '../../components/Cart.vue';
 export default {  
     data() {
         return {
-            cart: [],
+            
         }
-    },
-
-    components: {
-        Cart
     },
 
     computed: {
@@ -59,7 +53,7 @@ export default {
     },
 
     mounted() {
-            this.$store.dispatch("fetchProducts");
-        },
+        this.$store.dispatch("fetchProducts");
+    },
 }
 </script>

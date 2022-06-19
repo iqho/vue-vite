@@ -9,7 +9,7 @@
                     <th>Image</th>
                     <th>Price</th>
                     <th>Quantity</th>
-                    <th>Total</th>
+                    <th>SubTotal</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -19,15 +19,15 @@
                     <td>{{ product.title }}</td>
                     <td><img :src="product.image" height="40" width="50"/></td>
                     <td>{{ '$' + product.price }}</td>
-                    <td>1</td>
-                    <td>{{ '$' + product.price * 1 }}</td>
+                    <td><input type="number" :value="product.quantity" @change="updateSubTotal(index)" /></td>
+                    <td>{{ '$' + product.price * product.quantity }}</td>
                     <td><a class="btn btn-primary" @click="removeItem(index)">Remove Cart</a></td>
                 </tr>
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="3" class="text-end"><strong>Total</strong></td>
-                    <td><strong>{{ '$'+ totalPrice }}</strong></td>
+                    <td colspan="5" class="text-end"><strong>Grand Total</strong></td>
+                    <td colspan="2" class="text-start"><strong>{{ '$'+ totalPrice }}</strong></td>
                 </tr>
             </tfoot>
         </table>
@@ -39,6 +39,12 @@ export default {
     
     name: "Shopping",
 
+    data() {
+        return {
+            quantity: 1,  
+        }
+    },
+
     computed: {
 
         StoreCart() {
@@ -49,23 +55,14 @@ export default {
             return this.storeCart.length;
         },
 
-        total() {
-            return this.$store.getters.storeCartTotal;
-        },
-
         totalPrice() {
-            let total = 0;
-            this.cart.forEach(item => {
-                total += item.price * 1;
-            });
-
-            return total.toFixed(2);
+            return this.$store.getters.totalAmount;
         },
 
         cart() {
             return this.$store.getters.storeCart.map(cartitems => {
-                return this.$store.getters.products.find(itemForSale => {
-                return cartitems === itemForSale.id;
+                return this.$store.getters.storeCart.find(itemForSale => {
+                return cartitems.id === itemForSale.id;
                 });
             });
         }
@@ -76,6 +73,10 @@ export default {
         removeItem(index) {
             this.$store.dispatch("removeItem", index);
         },
+
+        updateSubTotal(index) {
+            this.storeCart[index].quantity = index.target.value;
+        }
     }
 };
 

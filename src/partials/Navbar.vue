@@ -1,9 +1,9 @@
 <template>
-    <div class="container" style="position:relative">
-        <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+    <div>
+        <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light container">
             <div class="container-fluid px-2">
                 <a class="navbar-brand" href="/">
-                    <img src="../assets/logo.png" alt="logo" width="30" height="30">
+                   <img src="../assets/logo.png" alt="logo" width="40" height="30"> Vue Vite
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>

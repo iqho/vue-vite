@@ -7,7 +7,6 @@ export default createStore({
         products: [],
         pageTitle: "List of All Products",
         storeCart: [],
-        total: 0,
     },
 
     getters:{
@@ -26,14 +25,6 @@ export default createStore({
       storeCartTotal: state => {
         return state.storeCart.length;
       },
-
-      totalAmount: state => {
-        state.total = state.storeCart.reduce((total, item) => {
-            return total + item.price * item.quantity;
-        }, 0);
-
-        return state.total.toFixed(2);
-      }
     },
     
     mutations: {
@@ -42,24 +33,7 @@ export default createStore({
         },
 
         ADD_Item(state, id) {
-            const record = state.storeCart.find(p => p.id === id);
-
-            if (!record) {
-              state.storeCart.push({
-                id: id,
-                title: state.products.find(p => p.id === id).title,
-                price: state.products.find(p => p.id === id).price,
-                image: state.products.find(p => p.id === id).image,
-                quantity: 1
-              })
-            } 
-            else {
-              record.quantity++
-            }
-        
-
-         // state.storeCart.push(payload);
-         // console.log(payload);
+          state.storeCart.push(id);
         },
     
         REMOVE_Item(state, index) {
