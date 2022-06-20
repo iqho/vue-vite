@@ -4,10 +4,9 @@ import axios from 'axios'
 
 export default createStore({
     state: {
-        products: [],
         pageTitle: "List of All Products",
-        storeCart: [],
-        total: 0,
+        products: [],
+        storeCart: JSON.parse(localStorage.getItem('cart')),
     },
 
     getters:{
@@ -41,7 +40,7 @@ export default createStore({
             state.products = products
         },
 
-        ADD_Item(state, id) {
+        ADD_ITEM(state, id) {
             const record = state.storeCart.find(p => p.id === id);
 
             if (!record) {
@@ -56,13 +55,19 @@ export default createStore({
             else {
               record.quantity++
             }
-        
 
-         // state.storeCart.push(payload);
-         // console.log(payload);
+        },
+
+        UPDATE_QUANTITY(state, id) {
+            const item = state.storeCart.find(p => p.id === id);
+
+            if (item) {
+              item.quantity++
+            }
+
         },
     
-        REMOVE_Item(state, index) {
+        REMOVE_ITEM(state, index) {
           state.storeCart.splice(index, 1);
         },
 
@@ -80,11 +85,18 @@ export default createStore({
         },
 
         addItem(context, id) {
-          context.commit("ADD_Item", id);
+          context.commit("ADD_ITEM", id);
+          localStorage.setItem('cart', JSON.stringify(context.state.storeCart));
+        },
+
+        updateQuantity(context, id) {
+          context.commit("UPDATE_QUANTITY", id);
+          localStorage.setItem('cart', JSON.stringify(context.state.storeCart));
         },
     
         removeItem(context, index) {
-          context.commit("REMOVE_Item", index);
+          context.commit("REMOVE_ITEM", index);
+          localStorage.setItem('cart', JSON.stringify(context.state.storeCart));
         },
 
     },

@@ -2,24 +2,25 @@
   <div>
     <div class="row g-0 m-2"> 
         <div class="col-md-6">
-            <button class="btn btn-primary ms-2 mb-2 float-start" style="width:200px">Total: {{ total }}</button>
+            <button class="btn btn-primary ms-2 mb-2 float-start" style="width:200px">Total Amount: {{ totalPrice }}</button>
         </div>
         <div class="col-md-6 text-end">
         </div>
     </div>
         <div class="row p-2 mb-2"><div class="col-12 text-center border-bottom border-gray"><h1>{{ pageTitle }}</h1></div></div>
         <div class="row row-cols-1 row-cols-md-4 g-4">
-            <div class="col" v-for="(product, index) in products" :key="index">
+            <div v-for="(product, index) in products" :key="index">
                 <div class="card h-100" >
-                    <img :src="product.image" class="card-img-top" :alt="product.title" style="height:250px">
+                    <img :src="product.image" class="card-img-top" :alt="product.title" style="height:120px">
                     <div class="card-body">
-                        <h5 class="card-title">{{ product.title }}</h5>
-                        <p class="card-text">{{ product.description.substring(0, 150) }}</p>
+                        <h5 class="card-title">{{ product.title.substring(0, 25) }}</h5>
+                        <p class="card-text">{{ product.description.substring(0, 50) }}</p>
                     </div>
                     <div class="card-footer text-center fs-5 p-1">
-                        <button class="btn btn-success btn-sm float-start" v-on:click="addToCart(product.id)">+</button>
-                        <small class="text-primary">Price: ${{ product.price }}</small>
-                        <button class="btn btn-danger btn-sm float-end" v-on:click="removeFromCart(product.id)">-</button>
+                        <small class="text-primary float-start">Price: ${{ product.price }}</small>
+                        <button class="btn btn-outline-danger btn-sm float-end" v-on:click="addToCart(product.id)">
+                            <i class="fas fa-shopping-cart"></i>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -42,18 +43,23 @@ export default {
 
         products() {
             return this.$store.getters.products;
-        }
+        },
+
+        totalPrice() {
+            return this.$store.getters.totalAmount;
+        },
     },
     
     methods: {
         addToCart(id) {
             this.$store.dispatch("addItem", id);
-        }
+        },
                 
     },
 
     mounted() {
         this.$store.dispatch("fetchProducts");
+       // window.localStorage.removeItem('cart');
     },
 }
 </script>
