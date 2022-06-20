@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>Checkout ( {{ cartCount }} )</h3>
+    <h3>Checkout ( {{ $store.getters.cartCount }} )</h3>
     <div class="row g-0">
         <div class="col-md-8">
             <CartItem/>
@@ -16,17 +16,17 @@
 
                         <div class="form-group mb-2">
                             <label for="fullName">Full Name</label>
-                            <input type="text" class="form-control" id="fullName" v-model="fullName" autofocus required>
+                            <input type="text" class="form-control" placeholder="Full Name" id="fullName" v-model="fullName" autofocus required>
                         </div>
 
                         <div class="form-group mb-2">
                             <label for="userEmail" class="form-label">Email Address</label>
-                            <input type="email" class="form-control" id="userEmail" v-model="userEmail" required>
+                            <input type="email" class="form-control" placeholder="Email Address" id="userEmail" v-model="userEmail" required>
                         </div>
 
                         <div class="form-group mb-2">
                             <label for="userAddress" class="form-label">Full Address</label>
-                            <textarea class="form-control" placeholder="userAddress" v-model="userAddress" required></textarea>
+                            <textarea class="form-control" placeholder="Full Address" v-model="userAddress" required></textarea>
                         </div>
 
                     </div>   
@@ -90,11 +90,11 @@ export default {
         CartItem
     },
 
-    computed: {
-        cartCount(){
-                return this.$store.getters.storeCart.length;
-        }
-    }
+    // computed: {
+    //     // cartCount(){
+    //     //         return this.$store.getters.storeCart.length;
+    //     // }
+    // }
 
 }
 </script>

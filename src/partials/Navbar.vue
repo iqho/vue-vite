@@ -38,7 +38,7 @@
                         </li>
                     </ul>
                     <div class="btn-group">
-                        <a class="btn btn-outline-danger position-relative" id="dropdownMenuClickableInside"
+                        <a class="btn btn-outline-danger position-relative" id="dropdownMenuClickableOutside"
                             data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
                             <i class="fa-solid fa-cart-shopping"></i>
                             <span

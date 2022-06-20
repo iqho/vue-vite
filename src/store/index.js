@@ -1,104 +1,101 @@
-import { createStore } from 'vuex'
+import { createStore } from "vuex";
 
-import axios from 'axios'
+import axios from "axios";
 
 export default createStore({
-    state: {
-        pageTitle: "List of All Products",
-        products: [],
-        storeCart: JSON.parse(localStorage.getItem('cart')),
+  state: {
+    products: [],
+    storeCart: JSON.parse(localStorage.getItem("cart")) || [],
+  },
+
+  getters: {
+    products: (state) => {
+      return state.products;
     },
 
-    getters:{
-      pageTitle: state => {  
-        return state.pageTitle 
-      },
+    storeCart: (state) => {
+      return state.storeCart;
+    },
 
-      products: state => {  
-        return state.products 
-      },
+    cartCount: (state) => {
+      return state.storeCart.length;
+    },
 
-      storeCart: state => {  
-        return state.storeCart 
-      },
+    totalAmount: (state) => {
+      state.total = state.storeCart.reduce((total, item) => {
+        return total + item.price * item.quantity;
+      }, 0);
 
-      storeCartTotal: state => {
-        return state.storeCart.length;
-      },
+      return state.total.toFixed(2);
+    },
+  },
 
-      totalAmount: state => {
-        state.total = state.storeCart.reduce((total, item) => {
-            return total + item.price * item.quantity;
-        }, 0);
+  mutations: {
+    SET_PRODUCTS(state, products) {
+      state.products = products;
+    },
 
-        return state.total.toFixed(2);
+    ADD_ITEM(state, id) {
+      const record = state.storeCart.find((p) => p.id === id);
+      const item = state.products.find((p) => p.id === id);
+
+      if (!record) {
+        state.storeCart.push({
+          id: id,
+          title: item.title,
+          price: item.price,
+          image: item.images,
+          quantity: 1,
+        });
+      } else {
+        record.quantity++;
       }
     },
-    
-    mutations: {
-        SET_PRODUCTS(state, products) {
-            state.products = products
-        },
 
-        ADD_ITEM(state, id) {
-            const record = state.storeCart.find(p => p.id === id);
-
-            if (!record) {
-              state.storeCart.push({
-                id: id,
-                title: state.products.find(p => p.id === id).title,
-                price: state.products.find(p => p.id === id).price,
-                image: state.products.find(p => p.id === id).image,
-                quantity: 1
-              })
-            } 
-            else {
-              record.quantity++
-            }
-
-        },
-
-        UPDATE_QUANTITY(state, id) {
-            const item = state.storeCart.find(p => p.id === id);
-
-            if (item) {
-              item.quantity++
-            }
-
-        },
-    
-        REMOVE_ITEM(state, index) {
-          state.storeCart.splice(index, 1);
-        },
-
+    REMOVE_ITEM(state, index) {
+      state.storeCart.splice(index, 1);
     },
 
-    actions: {
-      async fetchProducts({ commit }) {
-          try {
-            const response = await axios.get('https://fakestoreapi.com/products')
-              commit('SET_PRODUCTS', response.data)
-            }
-            catch (error) {
-               // console.log(error)
-            }
-        },
-
-        addItem(context, id) {
-          context.commit("ADD_ITEM", id);
-          localStorage.setItem('cart', JSON.stringify(context.state.storeCart));
-        },
-
-        updateQuantity(context, id) {
-          context.commit("UPDATE_QUANTITY", id);
-          localStorage.setItem('cart', JSON.stringify(context.state.storeCart));
-        },
-    
-        removeItem(context, index) {
-          context.commit("REMOVE_ITEM", index);
-          localStorage.setItem('cart', JSON.stringify(context.state.storeCart));
-        },
-
+    UPDATE_QUANTITY(state, item) {
+      const record = state.storeCart.find((p) => p.id === item.id);
+      if (record) {
+        record.quantity = item.quantity;
+      }
     },
 
-})
+    CLEAR_CART(state) {
+      state.storeCart = [];
+    },
+  },
+
+  actions: {
+    async fetchProducts({ commit }) {
+      try {
+        const response = await axios.get("https://dummyjson.com/products");
+        commit("SET_PRODUCTS", response.data.products);
+      } catch (error) {
+        // console.log(error)
+      }
+    },
+
+    addItem(context, id) {
+      context.commit("ADD_ITEM", id);
+      localStorage.setItem("cart", JSON.stringify(context.state.storeCart));
+    },
+
+    removeItem(context, index) {
+      context.commit("REMOVE_ITEM", index);
+      localStorage.setItem("cart", JSON.stringify(context.state.storeCart));
+    },
+
+    updateQuantity(context, item) {
+      context.commit("UPDATE_QUANTITY", item);
+      localStorage.setItem("cart", JSON.stringify(context.state.storeCart));
+    },
+
+    clearCart(context) {
+      context.commit("CLEAR_CART");
+      localStorage.setItem("cart", JSON.stringify(context.state.storeCart));
+    },
+  },
+});

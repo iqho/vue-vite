@@ -1,7 +1,3 @@
-<script setup>
-  import Navbar from './partials/Navbar.vue';
-</script>
-
 <template>
   <div class="row g-0">
     <div class="col-12 border-bottom border-gray">
@@ -12,3 +8,13 @@
     </div>
   </div>
 </template>
+
+<script>
+import Navbar from "./partials/Navbar.vue";
+export default {
+  name: "App",
+  components: {
+    Navbar,
+  },
+};
+</script>
