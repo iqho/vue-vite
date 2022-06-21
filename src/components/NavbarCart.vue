@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <table class="table table-bordered text-center">
+    <div class="table-responsive">
+        <table class="table table-bordered table-sm text-center">
             <thead>
                 <tr>
                     <th style="width: 10%">#</th>
@@ -22,7 +22,7 @@
                     </td>
                     <td>${{ product.price * product.quantity }}</td>
                     <td>
-                        <button class="btn btn-danger" @click="removeItem(index)">Romove</button>
+                        <button class="btn btn-danger btn-sm" @click="removeItem(index)">X</button>
                     </td>
                 </tr>
                 <tr>
@@ -35,8 +35,8 @@
             <tfoot>
                 <tr>
                     <td colspan="6" class="text-end">
-                        <button class="btn btn-primary" @click="goToCart()">Cart Page</button>
-                        <button class="btn btn-success ms-1" @click="goToCheckout()">
+                        <button class="btn btn-primary" @click="goToCart()" data-bs-dismiss="offcanvas">Cart Page</button>
+                        <button class="btn btn-success ms-1" @click="goToCheckout()" data-bs-dismiss="offcanvas">
                             Checkout Page
                         </button>
                     </td>
