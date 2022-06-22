@@ -1,10 +1,9 @@
 <template>
-    <div>
-        <nav class="navbar navbar-expand-lg navbar-light container border-top border-gray">
+    <div class="g-0">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white container border-top border-bottom border-gray" :class="scrollNav ? 'fixed-top' : ''">
             <div class="container-fluid px-2">
-
-                <button class="navbar-toggler ms-2" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
+                <button class="navbar-toggler ms-2" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-expanded="false"
                     aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -19,7 +18,7 @@
                 </a> -->
 
                 <a class="navbar-brand d-lg-none mx-auto" href="/">
-                    <img src="../assets/logo.png" alt="logo" width="40" height="30"> Vue Vite
+                    <img src="https://winwinsp.com/site/images/logo.png" alt="logo" width="180" height="30" />
                 </a>
 
                 <!-- <a class="btn btn-outline-danger shadow-none position-relative d-sm-block d-md-block d-lg-none ms-auto"
@@ -31,18 +30,30 @@
                     </span>
                 </a> -->
 
-                <a class="position-relative ms-auto me-4" id="dropdownMenuClickableOutside"
-                        data-bs-toggle="offcanvas" data-bs-auto-close="outside" href="#offcanvasExample"
-                        aria-expanded="false">
+                <a class="position-relative ms-auto me-4 d-sm-block d-md-block d-lg-none"
+                    id="dropdownMenuClickableOutside" data-bs-toggle="offcanvas" data-bs-auto-close="outside"
+                    href="#offcanvasExample" aria-expanded="false">
                     <i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i>
                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                         {{ cartCount }}
                     </span>
                 </a>
 
-                <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <div class="offcanvas offcanvas-start g-0 text-center" id="offcanvasNavbar">
+                    <div class="offcanvas-header border-bottom border-gray">
+                        <h5 class="offcanvas-title mx-auto" id="offcanvasExampleLabel">
+                           <img src="https://winwinsp.com/site/images/logo.png" alt="logo" width="180" height="30" />
+                        </h5>
+                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                            aria-label="Close"></button>
+                    </div>
+                    <ul class="navbar-nav mb-2 mx-auto" style="min-width:300px">
 
-                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                        <li>
+                            <a class="navbar-brand ms-5" href="/" :style="scrollNav ? 'display:block' : 'display: none'">
+                            <img src="https://winwinsp.com/site/images/logo.png" alt="logo" width="180" height="30" />
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <router-link to="/" class="nav-link border-end border-gray" active-class="active">Home
                             </router-link>
@@ -70,19 +81,43 @@
                         </li>
 
                         <li class="nav-item">
-                            <router-link to="/contact" class="nav-link" active-class="active">Contact</router-link>
+                            <router-link to="/contact" class="nav-link border-end border-gray" active-class="active">Contact</router-link>
                         </li>
 
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">More Pages</a>
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">More Pages</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
                                 <li><a class="dropdown-item" href="#">Action</a></li>
                                 <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <hr class="dropdown-divider" />
+                                </li>
                                 <li><a class="dropdown-item" href="#">Something else here</a></li>
                             </ul>
                         </li>
 
+                        <li class="align-self-center ps-3 d-none d-lg-block">
+                            <a class="position-relative mx-auto" id="dropdownMenuClickableOutside"
+                            data-bs-toggle="offcanvas" data-bs-auto-close="outside" href="#offcanvasExample"
+                            aria-expanded="false" :style="scrollNav ? 'display: block' : 'display: none'">
+                                <i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i>
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                {{ cartCount }}
+                                </span>
+                            </a>
+                        </li>
+
+                        <li class="align-self-center ps-3 d-none d-lg-block">
+                            <a class="position-relative mx-auto" id="dropdownMenuClickableOutside"
+                            data-bs-toggle="offcanvas" data-bs-auto-close="outside" href="#offcanvasExample"
+                            aria-expanded="false" :style="scrollNav ? 'display: block' : 'display: none'">
+                                <i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i>
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                {{ cartCount }}
+                                </span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -93,32 +128,56 @@
             <div class="offcanvas-header border-bottom border-gray">
                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
                     aria-label="Close"></button>
-                <h5 class="offcanvas-title mx-auto" id="offcanvasExampleLabel">Cart Item ( {{ cartCount }} )</h5>
+                <h5 class="offcanvas-title mx-auto" id="offcanvasExampleLabel">
+                    Cart Item ( {{ cartCount }} )
+                </h5>
             </div>
             <div class="offcanvas-body">
                 <NavbarCart />
             </div>
         </div>
-
     </div>
 </template>
 
 <script>
-import NavbarCart from '../components/NavbarCart.vue';
+import NavbarCart from "../components/NavbarCart.vue";
 
 export default {
-    name: 'Navbar',
+    name: "Navbar",
+    data() {
+        return {
+            scrollNav: false,
+        }
+    },
+
     components: {
-        NavbarCart
+        NavbarCart,
     },
 
     computed: {
         cartCount() {
             return this.$store.getters.storeCart.length;
-        }
-    }
-};
+        },
+    },
 
+    methods: {
+        handleSCroll(event) {
+            if (window.scrollY > 100) {
+                return this.scrollNav = true;
+            } else if (window.scrollY < 100) {
+                return this.scrollNav = false;
+            }
+        },
+    },
+
+    created() {
+        window.addEventListener("scroll", this.handleSCroll);
+
+    },
+    destroyed() {
+        window.removeEventListener("scroll", this.handleSCroll);
+    },
+};
 </script>
 
 <style>
@@ -126,5 +185,12 @@ export default {
     background-color: #86cc8a;
     border-radius: 5px 5px 0 0;
 }
-</style>
 
+.hide-logo {
+    visibility: hidden !important;
+}
+
+.show-logo {
+    visibility: visible !important;
+}
+</style>

@@ -23,13 +23,13 @@
         </div>
         <div class="container d-none d-lg-block">
             <div class="row g-0 my-4 ps-2">
-                <div class="col-4 text-center pb-1">
+                <div class="col-3 text-center pb-1">
                     <a class="navbar-brand" href="/">
                         <img src="https://winwinsp.com/site/images/logo.png" alt="logo" width="250" height="50">
                     </a>
                 </div>
                 <div class="col-7 d-flex align-items-center">
-                    <div class="input-group border border-gray p-2">
+                    <div class="input-group border border-gray p-1">
                         <input type="text" name="search" placeholder="Search Product" class="form-control shadow-none p-2" style="out">
                         <select name="search-by-category" class="form-select" style="border-left:1px solid #ccc; max-width: 180px">
                             <option value="1">All</option>
@@ -42,7 +42,7 @@
                         </button>
                     </div>
                 </div>
-                <div class="col-1 d-flex align-items-center">
+                <div class="col-2 d-flex align-items-center">
                     <a class="position-relative mx-auto" id="dropdownMenuClickableOutside"
                         data-bs-toggle="offcanvas" data-bs-auto-close="outside" href="#offcanvasExample"
                         aria-expanded="false">

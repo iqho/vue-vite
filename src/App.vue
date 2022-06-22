@@ -1,6 +1,6 @@
 <template>
   <div class="row g-0">
-    <div class="col-12 border-bottom border-gray">
+    <div class="col-12">
       <Header></Header>
     </div>
     <div class="col-12 p-3">
