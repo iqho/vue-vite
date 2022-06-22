@@ -1,20 +1,20 @@
 <template>
   <div class="row g-0">
     <div class="col-12 border-bottom border-gray">
-      <Navbar></Navbar>
+      <Header></Header>
     </div>
-    <div class="col-12 p-3 mt-5">
+    <div class="col-12 p-3">
       <router-view></router-view>
     </div>
   </div>
 </template>
 
 <script>
-import Navbar from "./partials/Navbar.vue";
+import Header from "./partials/Header.vue";
 export default {
   name: "App",
   components: {
-    Navbar,
+    Header
   },
 };
 </script>

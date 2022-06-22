@@ -1,19 +1,7 @@
 <template>
     <div>
-        <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light container">
+        <nav class="navbar navbar-expand-lg navbar-light container border-top border-gray">
             <div class="container-fluid px-2">
-                <a class="navbar-brand" href="/">
-                    <img src="../assets/logo.png" alt="logo" width="40" height="30"> Vue Vite
-                </a>
-
-                <a class="btn btn-outline-danger position-relative d-sm-block d-md-block d-lg-none ms-auto"
-                    id="dropdownMenuClickableOutside" data-bs-toggle="offcanvas" data-bs-auto-close="outside"
-                    href="#offcanvasExample" aria-expanded="false">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                        {{ cartCount }}
-                    </span>
-                </a>
 
                 <button class="navbar-toggler ms-2" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
@@ -21,57 +9,91 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
+                <!-- <a class="btn btn-outline-danger position-relative d-sm-block d-md-block d-lg-none me-auto"
+                    id="dropdownMenuClickableOutside" data-bs-toggle="offcanvas" data-bs-auto-close="outside"
+                    href="#offcanvasExample" aria-expanded="false">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        {{ cartCount }}
+                    </span>
+                </a> -->
+
+                <a class="navbar-brand d-lg-none mx-auto" href="/">
+                    <img src="../assets/logo.png" alt="logo" width="40" height="30"> Vue Vite
+                </a>
+
+                <!-- <a class="btn btn-outline-danger shadow-none position-relative d-sm-block d-md-block d-lg-none ms-auto"
+                    id="dropdownMenuClickableOutside" data-bs-toggle="offcanvas" data-bs-auto-close="outside"
+                    href="#offcanvasExample" aria-expanded="false">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        {{ cartCount }}
+                    </span>
+                </a> -->
+
+                <a class="position-relative ms-auto me-4" id="dropdownMenuClickableOutside"
+                        data-bs-toggle="offcanvas" data-bs-auto-close="outside" href="#offcanvasExample"
+                        aria-expanded="false">
+                    <i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        {{ cartCount }}
+                    </span>
+                </a>
+
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
 
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                         <li class="nav-item">
                             <router-link to="/" class="nav-link border-end border-gray" active-class="active">Home
                             </router-link>
                         </li>
+
                         <li class="nav-item">
                             <router-link to="/products" class="nav-link border-end border-gray" active-class="active">
                                 Products</router-link>
                         </li>
+
                         <li class="nav-item">
                             <router-link to="/cart" class="nav-link border-end border-gray" active-class="active">Cart
                             </router-link>
                         </li>
+
                         <li class="nav-item">
                             <router-link to="/checkout" class="nav-link border-end border-gray" active-class="active">
                                 Checkout
                             </router-link>
                         </li>
+
                         <li class="nav-item">
                             <router-link to="/about" class="nav-link border-end border-gray" active-class="active">About
                             </router-link>
                         </li>
+
                         <li class="nav-item">
                             <router-link to="/contact" class="nav-link" active-class="active">Contact</router-link>
                         </li>
-                    </ul>
-                    <div class="btn-group d-none d-lg-block">
-                        <a class="btn btn-outline-danger position-relative" id="dropdownMenuClickableOutside"
-                            data-bs-toggle="offcanvas" data-bs-auto-close="outside" href="#offcanvasExample"
-                            aria-expanded="false">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                            <span
-                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                {{ cartCount }}
-                            </span>
-                        </a>
-                    </div>
 
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">More Pages</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
                 </div>
             </div>
         </nav>
 
-
         <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample"
             aria-labelledby="offcanvasExampleLabel">
-            <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasExampleLabel">Cart Item ( {{ cartCount }} )</h5>
+            <div class="offcanvas-header border-bottom border-gray">
                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
                     aria-label="Close"></button>
+                <h5 class="offcanvas-title mx-auto" id="offcanvasExampleLabel">Cart Item ( {{ cartCount }} )</h5>
             </div>
             <div class="offcanvas-body">
                 <NavbarCart />
