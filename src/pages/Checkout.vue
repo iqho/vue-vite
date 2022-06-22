@@ -51,14 +51,14 @@
                     </div>   
                 </div>
 
-                <div class="card">
+                <!-- <div class="card">
                     <div class="card-header">
                         User Information
                     </div>
                     <div class="card-body">
                         <h6>User Details</h6>
                     </div>   
-                </div>
+                </div> -->
 
                 <div class="row g-0 mt-3">
                     <div class="col-md-12 text-center">
