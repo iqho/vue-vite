@@ -23,8 +23,8 @@
                     </a>
                 </div>
                 <div class="col-6 d-flex align-items-center">
-                    <div class="input-group border border-gray p-1">
-                        <input type="text" name="search" placeholder="Search Product" class="form-control shadow-none p-2" style="out">
+                    <div class="input-group border border-gray p-1" style="border-radius: 10px 0px 0px 10px">
+                        <input type="text" name="search" placeholder="Search Product" class="form-control shadow-none p-2">
                         <select name="search-by-category" class="form-select shadow-none" style="border-left:1px solid #ccc; max-width: 180px">
                             <option value="1">All Categories</option>
                             <option value="2">Computer</option>
@@ -37,9 +37,7 @@
                     </div>
                 </div>
                 <div class="col-2 d-flex align-items-center">
-                    <a class="position-relative mx-auto" id="dropdownMenuClickableOutside"
-                        data-bs-toggle="offcanvas" data-bs-auto-close="outside" href="#offcanvasExample"
-                        aria-expanded="false">
+                    <a class="position-relative mx-auto" data-bs-toggle="offcanvas" data-bs-auto-close="outside" href="#offcanvasCartPanel" aria-expanded="false">
                         <i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                             {{ cartCount }}

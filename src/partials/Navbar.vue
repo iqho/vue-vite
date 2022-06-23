@@ -104,6 +104,7 @@
                                 </span>
                             </a>
                         </li>
+                        
                     </ul>
                 </div>
             </div>
@@ -111,7 +112,7 @@
 
         <!-- offCanvas Cart Panel -->
         <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasCartPanel"
-            aria-labelledby="offcanvasCartPanelLabel">
+            aria-labelledby="offcanvasCartPanelLabel" style="width:100%; max-width:500px">
             <div class="offcanvas-header border-bottom border-gray">
                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
                     aria-label="Close"></button>
@@ -192,8 +193,9 @@ export default {
 
 <style lang="css" scoped>
 .active {
-    background-color: #86cc8a;
+    background-color: #ececec;
     border-radius: 5px 5px 0 0;
+    border-right: none;
 }
 
 @media only screen and (min-width : 992px) {

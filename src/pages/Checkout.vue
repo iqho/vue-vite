@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container px-3">
     <h3>Checkout ( {{ $store.getters.cartCount }} )</h3>
     <div class="row g-0">
         <div class="col-md-8">

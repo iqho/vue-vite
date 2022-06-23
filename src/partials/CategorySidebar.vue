@@ -2,20 +2,23 @@
     <div>
         <ul class="list-group">
           <li class="list-group-item d-flex justify-content-between align-items-center">
+            <h5 class="py-1 g-0">Categories</h5>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
             <router-link to="/" class="routerLink">
-              <i class="fa-solid fa-computer-classic me-1"></i> Computer
+              <i class="fa-solid fa-angles-right me-1"></i> Computer
             </router-link>
             <span class="badge bg-primary rounded-pill">14</span>
           </li>
           <li class="list-group-item d-flex justify-content-between align-items-center">
             <router-link to="/" class="routerLink">
-              <i class="fa-solid fa-mobile-retro me-1"></i> Mobile
+              <i class="fa-solid fa-angles-right me-1"></i> Mobile
             </router-link>
             <span class="badge bg-primary rounded-pill">2</span>
           </li>
           <li class="list-group-item d-flex justify-content-between align-items-center">
             <router-link to="/" class="routerLink">
-              <i class="fa-solid fa-basket-shopping me-1"></i> Grocery
+              <i class="fa-solid fa-angles-right me-1"></i> Grocery
             </router-link>
             <span class="badge bg-primary rounded-pill">1</span>
           </li>

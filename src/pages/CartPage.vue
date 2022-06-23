@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container px-3">
         <h3>Shopping Cart ( {{ cartCount }} )</h3>
         <CartItem />
         <div class="row g-0">
@@ -33,7 +33,9 @@ export default {
         },
 
         clearCart() {
-            this.$store.dispatch("clearCart");
+            if(confirm("Do you really want to clear cart list ?")){
+                this.$store.dispatch("clearCart");
+            }
         },
     },
 };

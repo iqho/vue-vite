@@ -4,7 +4,7 @@
             <thead>
                 <tr>
                     <th style="width: 10%">#</th>
-                    <th style="width: 30%">Name</th>
+                    <th style="width: 30%; text-align:left">Name</th>
                     <th style="width: 20%">Image</th>
                     <th style="width: 10%">Price</th>
                     <th style="width: 10%">Quantity</th>
@@ -14,17 +14,17 @@
             </thead>
             <tbody>
                 <tr v-for="(product, index) in cart" :key="index">
-                    <td>{{ index + 1 }}</td>
-                    <td>{{ product.title }}</td>
+                    <td class="v-align">{{ index + 1 }}</td>
+                    <td class="text-start v-align">{{ product.title }}</td>
                     <td>
                         <img :src="product.image[0]" height="40" width="50" />
                     </td>
-                    <td>{{ "$" + product.price }}</td>
+                    <td class="v-align">{{ "$" + product.price }}</td>
                     <td>
-                        <input type="number" class="form-control" min="1" :value="product.quantity"
+                        <input type="number" class="form-control text-center" min="1" :value="product.quantity"
                             @change="updateQuantity(product.id, $event)" />
                     </td>
-                    <td>{{ "$" + (product.price * product.quantity).toFixed(2) }}</td>
+                    <td class="v-align">{{ "$" + (product.price * product.quantity).toFixed(2) }}</td>
                     <td>
                         <button class="btn btn-danger" @click="removeItem(index)">Remove</button>
                     </td>
@@ -70,7 +70,9 @@ export default {
 
     methods: {
         removeItem(index) {
-            this.$store.dispatch("removeItem", index);
+            if(confirm("Do you really want to remove this product from cart ?")){
+                this.$store.dispatch("removeItem", index);
+            }
         },
 
         updateQuantity(id, event) {
