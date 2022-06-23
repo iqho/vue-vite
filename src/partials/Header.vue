@@ -6,12 +6,6 @@
                     <span class="ps-2 d-none d-lg-block">Welcome to Win Win SP | Largest Bangladeshi E-Commerce</span>
                     <ul class="navbar-nav ms-auto g-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Compare</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Language</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="#">Login</a>
                     </li>
                     <li class="nav-item">
@@ -23,16 +17,16 @@
         </div>
         <div class="container d-none d-lg-block">
             <div class="row g-0 my-4 ps-2">
-                <div class="col-3 text-center pb-1">
+                <div class="col-4 text-center pb-1">
                     <a class="navbar-brand" href="/">
                         <img src="https://winwinsp.com/site/images/logo.png" alt="logo" width="250" height="50">
                     </a>
                 </div>
-                <div class="col-7 d-flex align-items-center">
+                <div class="col-6 d-flex align-items-center">
                     <div class="input-group border border-gray p-1">
                         <input type="text" name="search" placeholder="Search Product" class="form-control shadow-none p-2" style="out">
-                        <select name="search-by-category" class="form-select" style="border-left:1px solid #ccc; max-width: 180px">
-                            <option value="1">All</option>
+                        <select name="search-by-category" class="form-select shadow-none" style="border-left:1px solid #ccc; max-width: 180px">
+                            <option value="1">All Categories</option>
                             <option value="2">Computer</option>
                             <option value="1">Grocery</option>
                             <option value="1">Mobile</option>
