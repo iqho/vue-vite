@@ -8,7 +8,7 @@
                 <div class="col-12">
                     <div class="row p-2 mb-2">
                         <div class="col-12 text-center border-bottom border-gray">
-                            <h3> List of All Products from {{ $route.params.name }}</h3>
+                            <h3> {{ products.length }} Products under {{ $route.params.name }}</h3>
                         </div>
                         <div class="col">
                             <select name="orderby" id="" class="form-select shadow-none float-end w-25 mt-2">
