@@ -9,7 +9,7 @@
             <div class="card-body">
                 <div class="row g-0">
                     <div class="col-4">
-                        <img :src="product.images[0]" class="card-img-top" :alt="product.title" style="height:200px" />
+                        <img :src="product.thumbnail" class="card-img-top" :alt="product.title" style="height:200px" />
                     </div>
                     <div class="col-8 px-3 py-1">
                         <h3 class="card-title">{{ product.title.substring(0, 50) }}</h3>

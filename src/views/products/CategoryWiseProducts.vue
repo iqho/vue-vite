@@ -8,19 +8,9 @@
                 <div class="col-12">
                     <div class="row p-2 mb-2">
                         <div class="col-12 text-center border-bottom border-gray">
-                            <h3> List of All Products</h3>
+                            <h3> List of All Products from {{ $route.params.name }}</h3>
                         </div>
-                        <div class="col-12">
-                                    <label for="vol">Price (between 0 and 1000):</label>
-
-        <input type="range" v-model.trim="range" min="0" max="1000" step="10"/>  
-        <input type="text" v-model.trim="title"/>  
-        <!-- <ul>
-            <li v-for="product in filterProducts" :key="product.name"> Product Name : {{product.name}} - Price : {{product.price}} ({{product.category}}) 
-                {{product.gradovi}}
-            </li>
-        </ul> -->
-
+                        <div class="col">
                             <select name="orderby" id="" class="form-select shadow-none float-end w-25 mt-2">
                                 <option value="1">Order By Name</option>
                                 <option value="2">Order By Date</option>
@@ -29,7 +19,7 @@
                         </div>
                     </div>
                     <div class="row row-cols-1 row-cols-md-4 g-4">
-                        <div v-for="(product, index) in filterProducts" :key="index">
+                        <div v-for="(product, index) in products" :key="index">
                             <div class="card h-100">
                                 <router-link :to="`/product/${product.id}`" :id="product.id" class="p-2">
                                     <img :src="product.thumbnail" class="card-img-top" :alt="product.title" style="height:130px">
@@ -78,19 +68,18 @@
 </template>
 
 <script>
-
+import axios from 'axios';
 import CategoryList from '../../partials/CategoryList.vue';
 
 export default {
-
-    data(){
-        return{
-            products: this.$store.getters.products,
-            range: '1000',
-            title: ''
+    name: 'CategoryWiseProducts',
+    props: {
+        name: {
+            type: String,
+            required: true
         }
     },
-    
+
     components: {
         CategoryList
     },
@@ -100,61 +89,25 @@ export default {
     },
 
     computed: {
+        products() {
+            //return this.$store.getters.products;
+            // this.$store.getters.products.sort((a, b) => (a.price > b.price) ? 1 : -1)
+            // return this.$store.getters.products.filter(product => !product.category.toLowerCase().indexOf(this.name.toLowerCase()))
+           
+    
+          
+          // Working
+         // return this.$store.getters.products.filter(product => (product.price <= 20) ? product : '')
+           // return this.$store.getters.products.filter(product => (product.price >= 0 && product.price <= this.range) ? product : '')
 
-        filterProducts(){
-           // return this.products;
-
-
-                 return this.filterProductsByName();
-
-
-                // return this.filterProductsByName(this.filterProductsByRange(this.filterProductsByCity(this.filterProductsByCategory(this.products))))
-            },
-
-        // products() {
-            
-        //     //return this.products.filter(product => (product.price >= 0 && product.price <= this.range) ? product : '')
-        //     //return this.products;
-
-        //     return this.filterProductsByName(this.filterProductsByRange(this.filterProductsByCity(this.filterProductsByCategory(this.products))))
-        // }
+             return this.$store.getters.products.filter(product => !product.category.indexOf(this.name))
+        }
     },
 
     methods: {
         addToCart(id) {
             this.$store.dispatch("addItem", id);
-        },
-
-        filterProductsByName() {
-            return this.products.filter(product => !product.title.toLowerCase().indexOf(this.title.toLowerCase()))
-        },
-
-        filterProductsByCategory: function(products){
-            return this.products.filter(product => !product.category.indexOf(this.category))
-        },
-
-
-            // filterProductsByCity: function(products) {
-            //     return this.products.filter(product => !product.gradovi.indexOf(this.gradovi))
-            // },
-
-            // filterProductsByRange: function(products){
-            //     return this.products.filter(product => (product.price >= 0 && product.price <= this.range) ? product : '')
-            // },
-
-            // sorting:function(){
-            //     this.products.sort((a,b)=>(a.price > b.price) ? 1 : -1)
-            // },
-            //  sorting2:function(){
-            //     this.products.sort((a,b)=>(a.price < b.price) ? 1 : -1)
-            // },
-
-            // resetOptions:function(){
-            //     this.category='',
-            //     this.gradovi='',
-            //     this.name='',
-            //     this.range='1000'
-            // },
+        }
     },
 
 }

@@ -193,9 +193,8 @@ export default {
 
 <style lang="css" scoped>
 .active {
-    background-color: #ececec;
+    background-color: #ccc;
     border-radius: 5px 5px 0 0;
-    border-right: none;
 }
 
 @media only screen and (min-width : 992px) {

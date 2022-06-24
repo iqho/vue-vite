@@ -39,6 +39,17 @@
 </div>    
 </template>
 
+<script>
+export default{
+  computed() {
+    $('.carousel').carousel({
+      interval: 1,
+    });
+  },
+}
+</script>
+
+
 <style scoped>
     .carousel-inner img {
         height: 350px;

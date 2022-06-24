@@ -74,7 +74,9 @@ export default {
 
     methods: {
         removeItem(index) {
-            this.$store.dispatch("removeItem", index);
+            if(confirm("Do you really want to remove this product from cart ?")){
+                this.$store.dispatch("removeItem", index);
+            }
         },
 
         goToCart() {

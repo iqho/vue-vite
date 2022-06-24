@@ -5,12 +5,21 @@ import axios from "axios";
 export default createStore({
   state: {
     products: [],
+    categories: [],
     storeCart: JSON.parse(localStorage.getItem("cart")) || [],
   },
 
   getters: {
     products: (state) => {
       return state.products;
+    },
+
+    categories: (state) => {
+      return state.categories;
+    },
+
+    getCategoryWiseProducts: (state) => (name) => {
+      return state.products.find(product => product.category === 'laptops')
     },
 
     storeCart: (state) => {
@@ -33,6 +42,10 @@ export default createStore({
   mutations: {
     SET_PRODUCTS(state, products) {
       state.products = products;
+    },
+
+    SET_CATEGORIES(state, categories) {
+      state.categories = categories;
     },
 
     ADD_ITEM(state, id) {
@@ -73,6 +86,16 @@ export default createStore({
       try {
         const response = await axios.get("https://dummyjson.com/products");
         commit("SET_PRODUCTS", response.data.products);
+      } catch (error) {
+        // console.log(error)
+      }
+    },
+
+    async fetchCategories({ commit }) {
+      try {
+        const response = await axios.get("https://dummyjson.com/products/categories");
+        commit("SET_CATEGORIES", response.data);
+        //console.log(response.data);
       } catch (error) {
         // console.log(error)
       }

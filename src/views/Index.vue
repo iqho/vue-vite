@@ -12,7 +12,7 @@
 
 <script>
 
-import CategoryList from '../partials/CategorySidebar.vue';
+import CategoryList from '../partials/CategoryList.vue';
 import Carousel from '../components/Carousel.vue';
 
 export default {
