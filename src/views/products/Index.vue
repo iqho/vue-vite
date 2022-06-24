@@ -11,21 +11,37 @@
                             <h3> List of All Products</h3>
                         </div>
                         <div class="col-12">
-                                    <label for="vol">Price (between 0 and 1000):</label>
-
-        <input type="range" v-model.trim="range" min="0" max="1000" step="10"/>  
-        <input type="text" v-model.trim="title"/>  
-        <!-- <ul>
-            <li v-for="product in filterProducts" :key="product.name"> Product Name : {{product.name}} - Price : {{product.price}} ({{product.category}}) 
-                {{product.gradovi}}
-            </li>
-        </ul> -->
-
-                            <select name="orderby" id="" class="form-select shadow-none float-end w-25 mt-2">
-                                <option value="1">Order By Name</option>
-                                <option value="2">Order By Date</option>
-                                <option value="3">Order By Price</option>
-                            </select>
+                            <div class="row g-0">
+                                <div class="col-2">
+                                    <label for="Range" class="form-label text-center mb-0">Price (0 - {{ range }})</label><br>
+                                    <input type="range" v-model.trim="range" class="form-range" min="0" max="20000" step="1" id="Range" style="max-width:180px !important">
+                                </div>
+                                <div class="col-4 d-flex align-items-center">
+                                    <div class="input-group">
+                                        <button v-on:click="resetOptions" class="btn btn-danger shadow-none mx-1">Reset</button>
+                                        <select v-model="category" class="form-select shadow-none float-end ms-1">
+                                        <option value="" selected>Filter By Category</option>
+                                        <option v-for="(cat, index) in categories" :key="index">
+                                            <option v-if="productsCount(cat) > 0" :value="cat">{{ cat }}</option>
+                                        </option>
+                                    </select>
+                                    </div>
+                                </div>
+                                <div class="col-4 d-flex align-items-center">
+                                    <div class="input-group ms-1">
+                                        <input type="text" v-model.trim="title" class="form-control shadow-none" placeholder="Search Products By Name" /> 
+                                    </div>
+                                </div>
+                                <div class="col-2 d-flex align-items-center">
+                                    <select v-model="orderBy" class="form-select shadow-none float-end ms-1" style="max-width:200px !important">
+                                        <option value="" selected>Filter By</option>
+                                        <option value="1">Price Low to High</option>
+                                        <option value="2">Price High to Low</option>
+                                        <option value="3">Newest to Oldest</option>
+                                        <option value="4">Oldest to Newest</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row row-cols-1 row-cols-md-4 g-4">
@@ -85,9 +101,10 @@ export default {
 
     data(){
         return{
-            products: this.$store.getters.products,
-            range: '1000',
-            title: ''
+            category: '',
+            title: '',
+            range: '20000',
+            orderBy: '',
         }
     },
     
@@ -96,28 +113,18 @@ export default {
     },
 
     mounted() {
+        this.$store.dispatch("fetchCategories");
         this.$store.dispatch("fetchProducts");
     },
 
     computed: {
+        categories() {
+            return this.$store.getters.categories;
+        },
 
-        filterProducts(){
-           // return this.products;
-
-
-                 return this.filterProductsByName();
-
-
-                // return this.filterProductsByName(this.filterProductsByRange(this.filterProductsByCity(this.filterProductsByCategory(this.products))))
-            },
-
-        // products() {
-            
-        //     //return this.products.filter(product => (product.price >= 0 && product.price <= this.range) ? product : '')
-        //     //return this.products;
-
-        //     return this.filterProductsByName(this.filterProductsByRange(this.filterProductsByCity(this.filterProductsByCategory(this.products))))
-        // }
+        filterProducts: function(){
+            return this.filterProductsByName(this.filterProductsByCategory(this.filterProductsByRange(this.filterProductsByPrice(this.$store.getters.products))))
+        },
     },
 
     methods: {
@@ -125,36 +132,47 @@ export default {
             this.$store.dispatch("addItem", id);
         },
 
-        filterProductsByName() {
-            return this.products.filter(product => !product.title.toLowerCase().indexOf(this.title.toLowerCase()))
-        },
-
         filterProductsByCategory: function(products){
-            return this.products.filter(product => !product.category.indexOf(this.category))
+            return products.filter(product => !product.category.indexOf(this.category))
+        },
+
+        filterProductsByName: function(products) {
+            return products.filter(product => !product.title.toLowerCase().indexOf(this.title.toLowerCase()))
+        },
+
+        filterProductsByRange: function(products){
+            return products.filter(product => (product.price >= 0 && product.price <= this.range) ? product : '')
+        },
+
+        filterProductsByPrice: function(products){
+            const orderBy = this.orderBy;
+            return products.sort((a, b) => {
+                if (orderBy === '1') {
+                return a.price - b.price;
+                } 
+                else if (orderBy === '2') {
+                return b.price - a.price;
+                }
+                else if (orderBy === '3') {
+                return b.id - a.id;
+                }
+                else if (orderBy === '4') {
+                return a.id - b.id;
+                }
+            });
+        },
+
+        productsCount(category){
+            return this.$store.getters.products.filter(product => !product.category.indexOf(category)).length;
+        },
+
+        resetOptions:function(){
+            this.category='',
+            this.title='',
+            this.range='20000'
         },
 
 
-            // filterProductsByCity: function(products) {
-            //     return this.products.filter(product => !product.gradovi.indexOf(this.gradovi))
-            // },
-
-            // filterProductsByRange: function(products){
-            //     return this.products.filter(product => (product.price >= 0 && product.price <= this.range) ? product : '')
-            // },
-
-            // sorting:function(){
-            //     this.products.sort((a,b)=>(a.price > b.price) ? 1 : -1)
-            // },
-            //  sorting2:function(){
-            //     this.products.sort((a,b)=>(a.price < b.price) ? 1 : -1)
-            // },
-
-            // resetOptions:function(){
-            //     this.category='',
-            //     this.gradovi='',
-            //     this.name='',
-            //     this.range='1000'
-            // },
     },
 
 }
