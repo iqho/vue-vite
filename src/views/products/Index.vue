@@ -66,6 +66,10 @@
                     </div>
                     <div class="row g-0 mt-3">
                         <div class="col-12">
+<Pagination  />
+
+
+                            
                             <nav aria-label="...">
                                 <ul class="pagination justify-content-center">
                                     <li class="page-item disabled">
@@ -96,6 +100,7 @@
 <script>
 
 import CategoryList from '../../partials/CategoryList.vue';
+import Pagination from '../../components/Pagination.vue';
 
 export default {
 
@@ -109,7 +114,7 @@ export default {
     },
     
     components: {
-        CategoryList
+        CategoryList, Pagination
     },
 
     mounted() {
