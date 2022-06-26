@@ -6,10 +6,10 @@
                     <span class="ps-2 d-none d-lg-block">Welcome to Win Win SP | Largest Bangladeshi E-Commerce</span>
                     <ul class="navbar-nav ms-auto g-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Login</a>
+                        <router-link to="/login" class="nav-link">Login</router-link>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Register</a>
+                        <router-link to="/register" class="nav-link">Register</router-link>
                     </li>
                     </ul>
                 </div>

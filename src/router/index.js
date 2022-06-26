@@ -53,6 +53,18 @@ const routes = [
     component: Contact,
   },
 
+  {
+    path: "/login",
+    name: "Login",
+    component: () => import('../pages/auth/Login.vue'),
+  },
+
+  {
+    path: "/register",
+    name: "Register",
+    component: () => import('../pages/auth/Register.vue'),
+  },
+
 ];
 
 const router = createRouter({ history: createWebHistory(), routes });

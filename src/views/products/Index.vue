@@ -12,9 +12,13 @@
                         </div>
                         <div class="col-12">
                             <div class="row g-0">
-                                <div class="col-2">
-                                    <label for="Range" class="form-label text-center mb-0">Price (0 - {{ range }})</label><br>
-                                    <input type="range" v-model.trim="range" class="form-range" min="0" max="20000" step="1" id="Range" style="max-width:180px !important">
+                                <div class="col-3">
+                                    <div class="input-group d-flex align-items-center">
+                                        <input type="number" v-model="minRange" class="form-control" placeholder="Min">-
+                                        <input type="number" v-model="maxRange" class="form-control" placeholder="Max">
+                                    </div>
+                                    <!-- <label for="Range" class="form-label text-center mb-0">Price (0 - {{ range }})</label><br>
+                                    <input type="range" v-model.trim="range" class="form-range" min="0" max="20000" step="1" id="Range" style="max-width:180px !important"> -->
                                 </div>
                                 <div class="col-4 d-flex align-items-center">
                                     <div class="input-group">
@@ -22,23 +26,26 @@
                                         <select v-model="category" class="form-select shadow-none float-end ms-1">
                                         <option value="" selected>Filter By Category</option>
                                         <option v-for="(cat, index) in categories" :key="index">
-                                            <option v-if="productsCount(cat) > 0" :value="cat">{{ cat }}</option>
+                                            <option :value="cat" >{{ cat }}</option>
+                                            <!-- <option v-if="productsCount(cat) > 0" :value="cat">{{ cat }}</option> -->
                                         </option>
                                     </select>
                                     </div>
                                 </div>
-                                <div class="col-4 d-flex align-items-center">
+                                <div class="col-3 d-flex align-items-center">
                                     <div class="input-group ms-1">
                                         <input type="text" v-model.trim="title" class="form-control shadow-none" placeholder="Search Products By Name" /> 
                                     </div>
                                 </div>
                                 <div class="col-2 d-flex align-items-center">
                                     <select v-model="orderBy" class="form-select shadow-none float-end ms-1" style="max-width:200px !important">
-                                        <option value="" selected>Filter By</option>
-                                        <option value="1">Price Low to High</option>
-                                        <option value="2">Price High to Low</option>
-                                        <option value="3">Newest to Oldest</option>
-                                        <option value="4">Oldest to Newest</option>
+                                        <option value="" selected>Sort By</option>
+                                        <option value="1">Name (A-Z)</option>
+                                        <option value="2">Name (Z-A)</option>
+                                        <option value="3">Price Low to High</option>
+                                        <option value="4">Price High to Low</option>
+                                        <option value="5">Newest to Oldest</option>
+                                        <option value="6">Oldest to Newest</option>
                                     </select>
                                 </div>
                             </div>
@@ -66,7 +73,7 @@
                     </div>
                     <div class="row g-0 mt-3">
                         <div class="col-12">
-<Pagination  />
+<!-- <Pagination  /> -->
 
 
                             
@@ -108,7 +115,8 @@ export default {
         return{
             category: '',
             title: '',
-            range: '20000',
+            minRange: '',
+            maxRange: '',
             orderBy: '',
         }
     },
@@ -146,26 +154,35 @@ export default {
         },
 
         filterProductsByRange: function(products){
-            return products.filter(product => (product.price >= 0 && product.price <= this.range) ? product : '')
+            return products.filter(product => (product.price >= (this.minRange ? this.minRange : 0) && product.price <= (this.maxRange ? this.maxRange : Math.max(product.price))))
         },
 
         filterProductsByPrice: function(products){
             const orderBy = this.orderBy;
             return products.sort((a, b) => {
+
                 if (orderBy === '1') {
-                return a.price - b.price;
-                } 
+                return (a.title.toLowerCase() > b.title.toLowerCase()) ? 1 : -1;
+                }
                 else if (orderBy === '2') {
-                return b.price - a.price;
+                return (a.title.toLowerCase() < b.title.toLowerCase()) ? 1 : -1;
                 }
                 else if (orderBy === '3') {
+                return a.price - b.price;
+                } 
+                else if (orderBy === '4') {
+                return b.price - a.price;
+                }
+                else if (orderBy === '5') {
                 return b.id - a.id;
                 }
-                else if (orderBy === '4') {
+                else if (orderBy === '6') {
                 return a.id - b.id;
                 }
             });
         },
+
+// sort((a, b) => (a.name > b.name) ? 1 : -1)
 
         productsCount(category){
             return this.$store.getters.products.filter(product => !product.category.indexOf(category)).length;
@@ -174,7 +191,8 @@ export default {
         resetOptions:function(){
             this.category='',
             this.title='',
-            this.range='20000'
+            this.minRange=''
+            this.maxRange=''
         },
 
 

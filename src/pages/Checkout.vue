@@ -10,27 +10,53 @@
 
                 <div class="card">
                     <div class="card-header">
-                        Shipping Information
+                        <div class="card-title">Shipping Address</div>
                     </div>
                     <div class="card-body">
 
                         <div class="form-group mb-2">
-                            <label for="fullName">Full Name</label>
-                            <input type="text" class="form-control" placeholder="Full Name" id="fullName" v-model="fullName" autofocus required>
+                            <label for="shippingFullName">Full Name</label>
+                            <input type="text" class="form-control" placeholder="Full Name" id="shippingFullName" v-model="shippingFullName" autofocus required>
                         </div>
 
                         <div class="form-group mb-2">
-                            <label for="userEmail" class="form-label">Email Address</label>
-                            <input type="email" class="form-control" placeholder="Email Address" id="userEmail" v-model="userEmail" required>
+                            <label for="shippingContactNumber" class="form-label">Contact Number</label>
+                            <input type="number" pattern="[0-9]" class="form-control no-arrow" placeholder="01xxxxxxxxx" id="shippingContactNumber" v-model="shippingContactNumber" required>
                         </div>
 
                         <div class="form-group mb-2">
-                            <label for="userAddress" class="form-label">Full Address</label>
-                            <textarea class="form-control" placeholder="Full Address" v-model="userAddress" required></textarea>
+                            <label for="shippingAddress" class="form-label">Full Address</label>
+                            <textarea class="form-control" placeholder="Full Address" v-model="shippingAddress" required></textarea>
                         </div>
 
                     </div>   
                 </div>
+
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Billing Address</div>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="form-group mb-2">
+                            <label for="BillingFullName">Full Name</label>
+                            <input type="text" class="form-control" placeholder="Full Name" id="BillingFullName" v-model="BillingFullName" required>
+                        </div>
+
+                        <div class="form-group mb-2">
+                            <label for="BillingContactNumber" class="form-label">Contact Number</label>
+                            <input type="number" pattern="[0-9]" class="form-control no-arrow" placeholder="01xxxxxxxxx" id="BillingContactNumber" v-model="shippingContactNumber" required>
+                        </div>
+
+                        <div class="form-group mb-2">
+                            <label for="BillingAddress" class="form-label">Full Address</label>
+                            <textarea class="form-control" placeholder="Full Address" v-model="BillingAddress" required></textarea>
+                        </div>
+
+                    </div>   
+                </div>
+
 
                 <div class="card">
                     <div class="card-header">
@@ -38,27 +64,39 @@
                     </div>
                     <div class="card-body">
                         <div class="form-group mb-2">
-                            <label for="userPaymentMethod" class="form-label">Payment Method</label>
-                            <select class="form-control" id="userPaymentMethod" v-model="userPaymentMethod" required>
+                            <label for="PaymentMethod" class="form-label">Payment Method</label>
+                            <select class="form-control" id="PaymentMethod" v-model="PaymentMethod"  @change="changePaymentMethod($event)" required>
                                 <option value="">Select Payment Method</option>
                                 <option value="mobile-banking">Mobile Banking</option>
-                                <option value="credit">Bank Deposit</option>
-                                <option value="credit">Credit Card</option>
-                                <option value="debit">Debit Card</option>
+                                <option value="bank-deposit">Bank Deposit</option>
+                                <option value="credit-card">Credit Card</option>
+                                <option value="debit-card">Debit Card</option>
                                 <option value="paypal">Paypal</option>
                             </select>
+
+                            <div v-if="PaymentMethod == 'mobile-banking'" class="border border-gray" :class="showPaymentForm ? 'd-block' : 'd-none'">
+                                
+                            </div>
+
+                            <div v-if="PaymentMethod == 'bank-deposit'" class="border border-gray" :class="showPaymentForm ? 'd-block' : 'd-none'">
+                                bank-deposit
+                            </div>
+
+                            <div v-if="PaymentMethod == 'credit-card'" class="border border-gray" :class="showPaymentForm ? 'd-block' : 'd-none'">
+                                credit-card
+                            </div>
+
+                            <div v-if="PaymentMethod == 'debit-card'" class="border border-gray" :class="showPaymentForm ? 'd-block' : 'd-none'">
+                                debit-card
+                            </div>
+
+                            <div v-if="PaymentMethod == 'paypal'" class="border border-gray" :class="showPaymentForm ? 'd-block' : 'd-none'">
+                               paypal
+                            </div>
+
                         </div>
                     </div>   
                 </div>
-
-                <!-- <div class="card">
-                    <div class="card-header">
-                        User Information
-                    </div>
-                    <div class="card-body">
-                        <h6>User Details</h6>
-                    </div>   
-                </div> -->
 
                 <div class="row g-0 mt-3">
                     <div class="col-md-12 text-center">
@@ -79,10 +117,14 @@ export default {
     data() {
         return {
             cartCount: 0,
-            fullName: '',
-            userEmail: '',
-            userAddress: '',
-            userPaymentMethod: '',
+            shippingFullName: '',
+            shippingContactNumber: '',
+            shippingAddress: '',
+            BillingFullName: '',
+            shippingContactNumber: '',
+            BillingAddress: '',
+            PaymentMethod: '',
+            showPaymentForm: false
         }
     },
 
@@ -90,15 +132,29 @@ export default {
         CartItem
     },
 
-    // computed: {
-    //     // cartCount(){
-    //     //         return this.$store.getters.storeCart.length;
-    //     // }
-    // }
+    methods: {
+        changePaymentMethod(event){
+            let paymentMethod = event.target.value;
+            if(paymentMethod){
+                this.showPaymentForm = true
+            }
+            //console.log(paymentMethod);
+        }
+    }
 
 }
 </script>
 
-<style>
-
+<style scoped>
+.no-arrow {
+  -moz-appearance: textfield;
+}
+.no-arrow::-webkit-inner-spin-button {
+  display: none;
+}
+.no-arrow::-webkit-outer-spin-button,
+.no-arrow::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 </style>
