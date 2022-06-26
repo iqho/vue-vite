@@ -17,8 +17,6 @@
                                         <input type="number" v-model="minRange" class="form-control" placeholder="Min">-
                                         <input type="number" v-model="maxRange" class="form-control" placeholder="Max">
                                     </div>
-                                    <!-- <label for="Range" class="form-label text-center mb-0">Price (0 - {{ range }})</label><br>
-                                    <input type="range" v-model.trim="range" class="form-range" min="0" max="20000" step="1" id="Range" style="max-width:180px !important"> -->
                                 </div>
                                 <div class="col-4 d-flex align-items-center">
                                     <div class="input-group">
@@ -181,8 +179,6 @@ export default {
                 }
             });
         },
-
-// sort((a, b) => (a.name > b.name) ? 1 : -1)
 
         productsCount(category){
             return this.$store.getters.products.filter(product => !product.category.indexOf(category)).length;
