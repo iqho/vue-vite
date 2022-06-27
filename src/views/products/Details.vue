@@ -6,7 +6,7 @@
         <div class="col-sm-12 col-md-9 ps-3 pe-2">
             <div class="row g-0">
                 <div class="col-12 text-end p-2">
-                    <router-link to="/products" class="btn btn-success">Back to All Products</router-link>
+                    <a @click="$router.go(-1)" class="btn btn-success">Back</a>
                 </div>
             </div>
             <div class="card" v-if="product">

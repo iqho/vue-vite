@@ -12,32 +12,16 @@
                             <h3> {{ filterProducts.length }} Products under {{ $route.params.name }}</h3>
                         </div>
 
-                        <div class="col-12">
-                            <div class="row g-0">
-                                <div class="col-4">
-                                    <div class="input-group d-flex align-items-center">
-                                        <button v-on:click="resetOptions" class="btn btn-danger shadow-none me-2">Reset</button>
-                                        <input type="number" v-model="minRange" class="form-control shadow-none" placeholder="Min">-
-                                        <input type="number" v-model="maxRange" class="form-control shadow-none" placeholder="Max">
-                                    </div>
-                                </div>
-                                <div class="col-5 d-flex align-items-center">
-                                    <div class="input-group ms-1">
-                                        <input type="text" v-model.trim="title" class="form-control shadow-none" placeholder="Search Products By Name" /> 
-                                    </div>
-                                </div>
-                                <div class="col-3 d-flex align-items-center">
-                                    <select v-model="orderBy" class="form-select shadow-none float-end ms-1" style="max-width:200px !important">
-                                        <option value="" selected>Sort By</option>
-                                        <option value="1">Name (A-Z)</option>
-                                        <option value="2">Name (Z-A)</option>
-                                        <option value="3">Price Low to High</option>
-                                        <option value="4">Price High to Low</option>
-                                        <option value="5">Newest to Oldest</option>
-                                        <option value="6">Oldest to Newest</option>
-                                    </select>
-                                </div>
-                            </div>
+                        <div class="col-12 mt-2 float-end">
+                            <select v-model="orderBy" class="form-select shadow-none float-end ms-1" style="max-width:200px !important">
+                                <option value="" selected>Order By</option>
+                                <option value="1">Name (A-Z)</option>
+                                <option value="2">Name (Z-A)</option>
+                                <option value="3">Price Low to High</option>
+                                <option value="4">Price High to Low</option>
+                                <option value="5">Newest to Oldest</option>
+                                <option value="6">Oldest to Newest</option>
+                            </select>
                         </div>
 
                     </div>

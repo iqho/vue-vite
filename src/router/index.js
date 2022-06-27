@@ -42,18 +42,6 @@ const routes = [
   },
 
   {
-    path: "/about",
-    name: "About",
-    component: () => import('../pages/About.vue'),
-  },
-
-  {
-    path: "/contact",
-    name: "Contact",
-    component: Contact,
-  },
-
-  {
     path: "/login",
     name: "Login",
     component: () => import('../pages/auth/Login.vue'),

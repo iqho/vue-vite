@@ -70,18 +70,9 @@
                         </li>
 
                         <li class="nav-item" data-bs-dismiss="offcanvas">
-                            <router-link to="/checkout" class="nav-link border-right" active-class="active">
+                            <router-link to="/checkout" class="nav-link" active-class="active">
                                 Checkout
                             </router-link>
-                        </li>
-
-                        <li class="nav-item" data-bs-dismiss="offcanvas">
-                            <router-link to="/about" class="nav-link border-right" active-class="active">About
-                            </router-link>
-                        </li>
-
-                        <li class="nav-item" data-bs-dismiss="offcanvas">
-                            <router-link to="/contact" class="nav-link" active-class="active">Contact</router-link>
                         </li>
 
                         <!-- Search Panel Button on Scroll Page at Navigation Bar -->
@@ -134,13 +125,7 @@
                         <button type="button" class="btn-close text-reset me-2" data-bs-dismiss="offcanvas"
                         aria-label="Close"></button>
                         <input type="text" v-model="search" placeholder="Search Product" class="form-control shadow-none px-3 py-2">
-                            <select v-model="category" class="form-select shadow-none" style="max-width:180px">
-                                <option value="" selected>All Category</option>
-                                <option v-for="(cat, index) in categories" :key="index">
-                                    <option :value="cat" >{{ cat }}</option>
-                                </option>
-                            </select>
-                        <button name="search" class="btn btn-primary">
+                        <button name="search" class="btn btn-primary py-2">
                             <i class="fa fa-search" aria-hidden="true"></i>
                         </button>
                     </div>
