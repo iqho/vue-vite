@@ -23,18 +23,7 @@
                     </a>
                 </div>
                 <div class="col-6 d-flex align-items-center">
-                    <div class="input-group border border-gray p-1" style="border-radius: 10px 0px 0px 10px">
-                        <input type="text" name="search" placeholder="Search Product" class="form-control shadow-none p-2">
-                        <select name="search-by-category" class="form-select shadow-none" style="border-left:1px solid #ccc; max-width: 180px">
-                            <option value="1">All Categories</option>
-                            <option value="2">Computer</option>
-                            <option value="1">Grocery</option>
-                            <option value="1">Mobile</option>
-                        </select>
-                        <button name="search" class="btn btn-primary">
-                            <i class="fa fa-search" aria-hidden="true"></i>
-                        </button>
-                    </div>
+                    <SearchComponent/>
                 </div>
                 <div class="col-2 d-flex align-items-center">
                     <a class="position-relative mx-auto" data-bs-toggle="offcanvas" data-bs-auto-close="outside" href="#offcanvasCartPanel" aria-expanded="false">
@@ -52,11 +41,12 @@
 <script>
 
 import Navbar from '../partials/Navbar.vue';
+import SearchComponent from '../components/SearchComponent.vue';
 
 export default {
     name: 'Header',
     components: {
-        Navbar
+        Navbar, SearchComponent
     },
 
     computed: {
@@ -82,13 +72,7 @@ export default {
     }
     .navbar ul li:last-child {
         border-right:0px solid #ccc
-    }
-
-    select, input {
-        border: none;
-        outline: none;
-    }
-    
+    }    
 </style>>
 
 

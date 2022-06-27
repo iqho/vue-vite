@@ -21,11 +21,6 @@
   export default {
     name: 'CategoryList',
 
-      mounted() {
-          this.$store.dispatch("fetchCategories");
-          this.$store.dispatch("fetchProducts");
-      },
-
       computed: {
           categories() {
               return this.$store.getters.categories;

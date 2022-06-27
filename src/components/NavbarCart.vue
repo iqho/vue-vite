@@ -15,7 +15,7 @@
                     <td class="p-0">
                         <div class="row g-0">
                             <div class="col-12 v-align px-2 py-1">{{ product.title }}</div>
-                            <div class="col-12 border-top border-gray px-2">
+                            <div class="col-12 border-top border-gray">
                                 <div class="input-group v-align g-0">
                                     <span class="input-group-text bg-transparent border-0">${{ product.price }}</span>
                                     <span class="input-group-text bg-transparent border-0">x</span>

@@ -129,18 +129,29 @@
         <div class="offcanvas offcanvas-top bg-transparent" tabindex="-1" id="offcanvasSearchBar"
             aria-labelledby="offcanvasSearchBarLabel" style="height:70px; background-color:none">
             <div class="offcanvas-body g-0 bg-transparent">
-                <div class="container bg-white px-2 py-3">
-                    <div class="input-group d-flex align-items-center">
+                <div class="container bg-white py-3">
+                    <div class="input-group d-flex align-items-center px-2">
                         <button type="button" class="btn-close text-reset me-2" data-bs-dismiss="offcanvas"
                         aria-label="Close"></button>
-                        <input type="text" class="form-control shadow-none" placeholder="Search Product">
-                        <select name="search-by-category" class="form-select shadow-none" style="border-left:1px solid #ccc; max-width: 180px">
-                            <option value="1">All Categories</option>
-                            <option value="2">Computer</option>
-                            <option value="1">Grocery</option>
-                            <option value="1">Mobile</option>
-                        </select>
-                        <button class="btn btn-success"><i class="fa-solid fa-magnifying-glass fa-lg"></i></button>
+                        <input type="text" v-model="search" placeholder="Search Product" class="form-control shadow-none px-3 py-2">
+                            <select v-model="category" class="form-select shadow-none" style="max-width:180px">
+                                <option value="" selected>All Category</option>
+                                <option v-for="(cat, index) in categories" :key="index">
+                                    <option :value="cat" >{{ cat }}</option>
+                                </option>
+                            </select>
+                        <button name="search" class="btn btn-primary">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <div class="container position-absolute mt-2" style="z-index:9999;">
+                        <div v-if="limitedProductsList.length > 0" class="list-group">
+                            <router-link v-for="(product, index) in limitedProductsList" :key="index" 
+                            :to="`/product/${product.id}`" :id="product.id" 
+                            class="list-group-item list-group-item-action py-1 px-2 text-primary" @click="resetInput">
+                                {{ product.title }}
+                            </router-link>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -157,6 +168,9 @@ export default {
     data() {
         return {
             scrollNav: false,
+            search: '',
+            category:'',
+            searchResultsLimit: 10
         }
     },
 
@@ -168,6 +182,23 @@ export default {
         cartCount() {
             return this.$store.getters.storeCart.length;
         },
+
+        categories() {
+            return this.$store.getters.categories;
+        },
+
+        filterProducts(){
+            if (this.search) {
+            return this.filterProductsByName(this.filterProductsByCategory(this.$store.getters.products))
+            } else {
+                return '';
+            }
+        },
+
+        limitedProductsList(){
+            return this.filterProducts.slice(0, this.searchResultsLimit);
+        }
+
     },
 
     methods: {
@@ -178,6 +209,21 @@ export default {
                 return this.scrollNav = false;
             }
         },
+
+
+        filterProductsByName: function(products) {
+            return products.filter(product => { return product.title.toLowerCase().includes(this.search.toLowerCase())
+            })
+        },
+        
+        filterProductsByCategory: function(products){
+            return products.filter(product => !product.category.indexOf(this.category))
+        },
+
+        resetInput(){
+            this.search = ''
+        },
+
     },
 
     created() {

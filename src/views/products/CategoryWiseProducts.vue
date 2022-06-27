@@ -16,8 +16,9 @@
                             <div class="row g-0">
                                 <div class="col-4">
                                     <div class="input-group d-flex align-items-center">
-                                        <input type="number" v-model="minRange" class="form-control" placeholder="Min">-
-                                        <input type="number" v-model="maxRange" class="form-control" placeholder="Max">
+                                        <button v-on:click="resetOptions" class="btn btn-danger shadow-none me-2">Reset</button>
+                                        <input type="number" v-model="minRange" class="form-control shadow-none" placeholder="Min">-
+                                        <input type="number" v-model="maxRange" class="form-control shadow-none" placeholder="Max">
                                     </div>
                                 </div>
                                 <div class="col-5 d-flex align-items-center">
@@ -120,20 +121,11 @@ export default {
         CategoryList
     },
 
-    mounted() {
-        this.$store.dispatch("fetchProducts");
-    },
-
     computed: {
 
         filterProducts: function(){
             return this.filterProductsByName(this.filterProductsByCategory(this.filterProductsByRange(this.filterProductsByPrice(this.$store.getters.products))))
         },
-
-
-        // products() {
-        //      return this.$store.getters.products.filter(product => !product.category.indexOf(this.name))
-        // }
     },
 
     methods: {
@@ -146,7 +138,8 @@ export default {
         },
 
         filterProductsByName: function(products) {
-            return products.filter(product => !product.title.toLowerCase().indexOf(this.title.toLowerCase()))
+            return products.filter(product => { return product.title.toLowerCase().includes(this.title.toLowerCase())
+            })
         },
 
         filterProductsByRange: function(products){
@@ -176,6 +169,12 @@ export default {
                 return a.id - b.id;
                 }
             });
+        },
+
+        resetOptions:function(){
+            this.title='',
+            this.minRange=''
+            this.maxRange=''
         },
 
     },

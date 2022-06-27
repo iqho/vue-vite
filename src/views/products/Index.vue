@@ -1,9 +1,9 @@
 <template>
     <div class="row g-0">
-        <div class="col-3">
+        <div class="col-sm-12 col-md-3">
             <CategoryList />
         </div>
-        <div class="col-9">
+        <div class="col-sm-12 col-md-9">
             <div class="row g-0 mx-3 px-2 border border-gray">
                 <div class="col-12">
                     <div class="row p-2 mb-2">
@@ -14,20 +14,20 @@
                             <div class="row g-0">
                                 <div class="col-3">
                                     <div class="input-group d-flex align-items-center">
-                                        <input type="number" v-model="minRange" class="form-control" placeholder="Min">-
-                                        <input type="number" v-model="maxRange" class="form-control" placeholder="Max">
+                                        <input type="number" v-model="minRange" class="form-control shadow-none" placeholder="Min">-
+                                        <input type="number" v-model="maxRange" class="form-control shadow-none" placeholder="Max">
                                     </div>
                                 </div>
                                 <div class="col-4 d-flex align-items-center">
                                     <div class="input-group">
                                         <button v-on:click="resetOptions" class="btn btn-danger shadow-none mx-1">Reset</button>
                                         <select v-model="category" class="form-select shadow-none float-end ms-1">
-                                        <option value="" selected>Filter By Category</option>
-                                        <option v-for="(cat, index) in categories" :key="index">
-                                            <option :value="cat" >{{ cat }}</option>
-                                            <!-- <option v-if="productsCount(cat) > 0" :value="cat">{{ cat }}</option> -->
-                                        </option>
-                                    </select>
+                                            <option value="" selected>Filter By Category</option>
+                                            <option v-for="(cat, index) in categories" :key="index">
+                                                <option :value="cat" >{{ cat }}</option>
+                                                <!-- <option v-if="productsCount(cat) > 0" :value="cat">{{ cat }}</option> -->
+                                            </option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-3 d-flex align-items-center">
@@ -123,11 +123,6 @@ export default {
         CategoryList, Pagination
     },
 
-    mounted() {
-        this.$store.dispatch("fetchCategories");
-        this.$store.dispatch("fetchProducts");
-    },
-
     computed: {
         categories() {
             return this.$store.getters.categories;
@@ -148,7 +143,8 @@ export default {
         },
 
         filterProductsByName: function(products) {
-            return products.filter(product => !product.title.toLowerCase().indexOf(this.title.toLowerCase()))
+            return products.filter(product => { return product.title.toLowerCase().includes(this.title.toLowerCase())
+            })
         },
 
         filterProductsByRange: function(products){

@@ -1,9 +1,9 @@
 <template>
     <div class="row g-0">
-      <div class="col-3">
+      <div class="col-sm-12 col-md-3">
         <CategoryList />
       </div>
-      <div class="col-9 px-3">
+      <div class="col-sm-12 col-md-9 px-3">
         <Carousel/>
       </div>
       

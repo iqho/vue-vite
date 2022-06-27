@@ -22,7 +22,7 @@
 
                             <div class="form-group mb-2">
                                 <label for="shippingContactNumber" class="form-label">Contact Number</label>
-                                <input type="number" pattern="[0-9]" class="form-control no-arrow"
+                                <input type="tel" pattern="[0-9]" class="form-control no-arrow"
                                     placeholder="01xxxxxxxxx" id="shippingContactNumber" v-model="shippingContactNumber"
                                     required>
                             </div>
@@ -36,36 +36,35 @@
                         </div>
                     </div>
 
-
                     <div class="card mt-3">
                         <div class="card-header">
                             <div class="card-title">Billing Address</div>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body pt-1">
+
                             <div class="col-12">
-                                <div class="form-check">
-                                <input type="checkbox" class="me-2" id="checkbox" v-model="sameAddress" />
-                                <label for="checkbox" > Same as Shipping Address</label>
+                                <div class="form-check p-0 pb-1 mt-0 pt-0 text-left d-flex align-items-center">
+                                <input type="checkbox" class="me-2" id="checkbox" v-model="sameAddress" @change="autoFill" style="height:28px; width: 20px" />
+                                <label for="checkbox" class="fs-6"> Same as Shipping Address</label>
                                 </div>
-                                {{ sameAddress }}
                             </div>
 
                             <div class="form-group mb-2">
-                                <label for="BillingFullName">Full Name</label>
-                                <input type="text" class="form-control" placeholder="Full Name" id="BillingFullName"
-                                    v-model="BillingFullName" required>
+                                <label for="billingFullName">Full Name</label>
+                                <input type="text" class="form-control" placeholder="Full Name" id="billingFullName"
+                                    v-model="billingFullName" required>
                             </div>
 
                             <div class="form-group mb-2">
-                                <label for="BillingContactNumber" class="form-label">Contact Number</label>
-                                <input type="number" pattern="[0-9]" class="form-control no-arrow"
-                                    placeholder="01xxxxxxxxx" id="BillingContactNumber" v-model="shippingContactNumber"
+                                <label for="billingContactNumber" class="form-label">Contact Number</label>
+                                <input type="tel" pattern="[0-9]" class="form-control no-arrow"
+                                    placeholder="01xxxxxxxxx" id="billingContactNumber" v-model="billingContactNumber"
                                     required>
                             </div>
 
                             <div class="form-group mb-2">
-                                <label for="BillingAddress" class="form-label">Full Address</label>
-                                <textarea class="form-control" placeholder="Full Address" v-model="BillingAddress"
+                                <label for="billingAddress" class="form-label">Full Address</label>
+                                <textarea class="form-control" placeholder="Full Address" id="billingAddress" v-model="billingAddress"
                                     required></textarea>
                             </div>
 
@@ -86,7 +85,7 @@
                                     <option value="bank-deposit">Bank Deposit</option>
                                     <option value="credit-card">Credit Card</option>
                                     <option value="paypal">Paypal</option>
-                                    <option value="cod">cod</option>
+                                    <option value="cod">Cash on Delivery</option>
                                 </select>
 
                                 <div class="row g-0 mt-2 p-1">
@@ -111,11 +110,6 @@
                                             <input type="number" class="form-control shadow-none"
                                                 id="mobile-banking-transaction-number" placeholder="Transaction Number">
                                         </div>
-                                        <div class="mb-2">
-                                            <label for="mobile-banking-amount" class="form-label">Account Number</label>
-                                            <input type="number" class="form-control shadow-none"
-                                                id="mobile-banking-amount" placeholder="Amount">
-                                        </div>
                                     </div>
 
                                     <div v-if="PaymentMethod == 'bank-deposit'" class="col-12"
@@ -135,11 +129,6 @@
                                             <label for="bank-branch-name" class="form-label">Branch Name</label>
                                             <input type="text" in="bank-branch-name"
                                                 class="form-control shadow-none mb-1" placeholder="Branch Name">
-                                        </div>
-                                        <div class="mb-2">
-                                            <label for="bank-amount" class="form-label">Amount</label>
-                                            <input type="text" id="bank-amount" class="form-control shadow-none mb-1"
-                                                placeholder="Amount">
                                         </div>
                                     </div>
 
@@ -204,12 +193,15 @@ export default {
     data() {
         return {
             cartCount: 0,
+
             shippingFullName: '',
             shippingContactNumber: '',
             shippingAddress: '',
-            BillingFullName: '',
-            shippingContactNumber: '',
-            BillingAddress: '',
+
+            billingFullName: '',
+            billingContactNumber: '',
+            billingAddress: '',
+
             PaymentMethod: '',
             showPaymentForm: false,
             sameAddress: false
@@ -227,7 +219,21 @@ export default {
                 this.showPaymentForm = true
             }
             //console.log(paymentMethod);
-        }
+        },
+
+        autoFill(){
+            if(this.sameAddress == true){
+                this.billingFullName = this.shippingFullName;
+                this.billingContactNumber = this.shippingContactNumber;
+                this.billingAddress = this.shippingAddress;
+            }
+            else {
+                this.billingFullName = ''
+                this.billingContactNumber = ''
+                this.billingAddress = '';
+            }
+       }
+
         
     }
 
