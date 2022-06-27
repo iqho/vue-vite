@@ -11,41 +11,23 @@
                             <h3> List of All Products</h3>
                         </div>
                         <div class="col-12">
-                            <div class="row g-0">
-                                <div class="col-3">
-                                    <div class="input-group d-flex align-items-center">
-                                        <input type="number" v-model="minRange" class="form-control shadow-none" placeholder="Min">-
-                                        <input type="number" v-model="maxRange" class="form-control shadow-none" placeholder="Max">
-                                    </div>
-                                </div>
-                                <div class="col-4 d-flex align-items-center">
-                                    <div class="input-group">
-                                        <button v-on:click="resetOptions" class="btn btn-danger shadow-none mx-1">Reset</button>
-                                        <select v-model="category" class="form-select shadow-none float-end ms-1">
-                                            <option value="" selected>Filter By Category</option>
-                                            <option v-for="(cat, index) in categories" :key="index">
-                                                <option :value="cat" >{{ cat }}</option>
-                                                <!-- <option v-if="productsCount(cat) > 0" :value="cat">{{ cat }}</option> -->
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-3 d-flex align-items-center">
-                                    <div class="input-group ms-1">
-                                        <input type="text" v-model.trim="title" class="form-control shadow-none" placeholder="Search Products By Name" /> 
-                                    </div>
-                                </div>
-                                <div class="col-2 d-flex align-items-center">
-                                    <select v-model="orderBy" class="form-select shadow-none float-end ms-1" style="max-width:200px !important">
-                                        <option value="" selected>Sort By</option>
-                                        <option value="1">Name (A-Z)</option>
-                                        <option value="2">Name (Z-A)</option>
-                                        <option value="3">Price Low to High</option>
-                                        <option value="4">Price High to Low</option>
-                                        <option value="5">Newest to Oldest</option>
-                                        <option value="6">Oldest to Newest</option>
+                            <div class="row g-0 mt-2">
+                                <div class="col-6 text-end pe-2" style="padding-top:7px">                             
+                                   <label for="password" class="form-label">Filter By</label>
+                                </div>     
+                                <div class="col-3 pe-1">
+                                    <select v-model="filterName" class="form-select shadow-none" style="max-width:200px !important">
+                                        <option value="1">Date</option>
+                                        <option value="2">Price</option>
+                                        <option value="3">Name</option>
                                     </select>
                                 </div>
+                                <div class="col-3">
+                                    <select v-model="filterByAD" class="col-3 form-select shadow-none" style="max-width:200px !important">
+                                        <option value="1">DESC</option>
+                                        <option value="2">ASC</option>
+                                    </select>
+                                </div>    
                             </div>
                         </div>
                     </div>
@@ -111,11 +93,8 @@ export default {
 
     data(){
         return{
-            category: '',
-            title: '',
-            minRange: '',
-            maxRange: '',
-            orderBy: '',
+            filterName: '1',
+            filterByAD: '1',
         }
     },
     
@@ -129,7 +108,7 @@ export default {
         },
 
         filterProducts: function(){
-            return this.filterProductsByName(this.filterProductsByCategory(this.filterProductsByRange(this.filterProductsByPrice(this.$store.getters.products))))
+            return this.filterProductsByPrice(this.$store.getters.products)
         },
     },
 
@@ -138,40 +117,33 @@ export default {
             this.$store.dispatch("addItem", id);
         },
 
-        filterProductsByCategory: function(products){
-            return products.filter(product => !product.category.indexOf(this.category))
-        },
-
-        filterProductsByName: function(products) {
-            return products.filter(product => { return product.title.toLowerCase().includes(this.title.toLowerCase())
-            })
-        },
-
-        filterProductsByRange: function(products){
-            return products.filter(product => (product.price >= (this.minRange ? this.minRange : 0) && product.price <= (this.maxRange ? this.maxRange : Math.max(product.price))))
-        },
-
         filterProductsByPrice: function(products){
-            const orderBy = this.orderBy;
+            const filterName = this.filterName;
+            const filterByAD = this.filterByAD;
             return products.sort((a, b) => {
 
-                if (orderBy === '1') {
-                return (a.title.toLowerCase() > b.title.toLowerCase()) ? 1 : -1;
+                if (filterName === '1' && filterByAD === '1') {
+                    return b.id - a.id;
                 }
-                else if (orderBy === '2') {
-                return (a.title.toLowerCase() < b.title.toLowerCase()) ? 1 : -1;
+
+                else if (filterName === '1' && filterByAD === '2') {
+                    return a.id - b.id;
                 }
-                else if (orderBy === '3') {
-                return a.price - b.price;
-                } 
-                else if (orderBy === '4') {
-                return b.price - a.price;
+
+                else if (filterName === '2' && filterByAD === '1') {
+                    return b.price - a.price;
                 }
-                else if (orderBy === '5') {
-                return b.id - a.id;
+
+                else if (filterName === '2' && filterByAD === '2') {
+                    return a.price - b.price;
                 }
-                else if (orderBy === '6') {
-                return a.id - b.id;
+
+                else if (filterName === '3' && filterByAD === '1') {
+                    return (a.title.toLowerCase() < b.title.toLowerCase()) ? 1 : -1;
+                }
+
+                else if (filterName === '3' && filterByAD === '2') {
+                    return (a.title.toLowerCase() > b.title.toLowerCase()) ? 1 : -1;
                 }
             });
         },

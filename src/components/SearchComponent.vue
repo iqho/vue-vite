@@ -1,14 +1,8 @@
 <template>
-    <div class="row g-0 position-relative">
+    <div class="row g-0 position-relative w-100">
         <div class="col-12">
             <div class="input-group p-1" style="border-radius: 10px 0px 0px 10px">
                 <input type="text" v-model="search" placeholder="Search Product" class="form-control shadow-none px-3 py-2">
-                    <select v-model="category" class="form-select shadow-none" style="max-width:180px">
-                        <option value="" selected>All Category</option>
-                        <option v-for="(cat, index) in categories" :key="index">
-                            <option :value="cat" >{{ cat }}</option>
-                        </option>
-                    </select>
                 <button name="search" class="btn btn-primary">
                     <i class="fa fa-search" aria-hidden="true"></i>
                 </button>
@@ -52,7 +46,7 @@ export default {
 
         filterProducts(){
             if (this.search) {
-            return this.filterProductsByName(this.filterProductsByCategory(this.$store.getters.products))
+            return this.filterProductsByName(this.$store.getters.products)
             } else {
                 return '';
             }
@@ -71,10 +65,6 @@ export default {
             })
         },
         
-        filterProductsByCategory: function(products){
-            return products.filter(product => !product.category.indexOf(this.category))
-        },
-
         resetInput(){
             this.search = ''
         },
