@@ -17,15 +17,14 @@
 
                 <!-- Search Button on Mobile Navigation -->
                 <a class="d-sm-block d-md-block d-lg-none"
-                    data-bs-toggle="offcanvas" data-bs-auto-close="outside"
-                    href="#offcanvasSearchBar" aria-expanded="false">
+                    data-bs-toggle="offcanvas"
+                    href="#offcanvasSearchBar">
                     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
                 </a>
 
                 <!-- Cart Button on Mobile Navigation Bar -->
                 <a class="position-relative ms-3 me-2 d-sm-block d-md-block d-lg-none"
-                    id="dropdownMenuClickableOutside" data-bs-toggle="offcanvas" data-bs-auto-close="outside"
-                    href="#offcanvasCartPanel" aria-expanded="false">
+                    id="dropdownMenuClickableOutside" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCartPanel">
                     <i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i>
                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                         {{ cartCount }}
@@ -78,7 +77,7 @@
                         <!-- Search Panel Button on Scroll Page at Navigation Bar -->
                         <li class="align-self-center ms-5 ps-3 d-none d-lg-block">
                             <a class="position-relative mx-auto"
-                            data-bs-toggle="offcanvas" data-bs-auto-close="outside" href="#offcanvasSearchBar"
+                            data-bs-toggle="offcanvas" data-bs-target="#offcanvasSearchBar"
                             aria-expanded="false" :style="scrollNav ? 'display: block' : 'display: none'">
                                 <i class="fa-solid fa-magnifying-glass fa-lg"></i>
                             </a>
@@ -117,8 +116,7 @@
         </div>
 
         <!-- offCanvas Search Bar -->
-        <div class="offcanvas offcanvas-top bg-transparent" tabindex="-1" id="offcanvasSearchBar"
-            aria-labelledby="offcanvasSearchBarLabel" style="height:70px; background-color:none">
+        <div class="offcanvas offcanvas-top bg-transparent" id="offcanvasSearchBar" style="height:70px; background-color:none">
             <div class="offcanvas-body g-0 bg-transparent">
                 <div class="container bg-white py-3">
                     <div class="input-group d-flex align-items-center px-2">

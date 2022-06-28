@@ -9,19 +9,26 @@
                     <div class="row p-2 mb-2">
 
                         <div class="col-12 text-center border-bottom border-gray">
-                            <h3> {{ filterProducts.length }} Products under {{ $route.params.name }}</h3>
+                            <h3> Category: {{ $route.params.name.charAt(0).toUpperCase() + $route.params.name.substring(1) }} ( {{ filterProducts.length }} )</h3>
                         </div>
 
-                        <div class="col-12 mt-2 float-end">
-                            <select v-model="orderBy" class="form-select shadow-none float-end ms-1" style="max-width:200px !important">
-                                <option value="" selected>Order By</option>
-                                <option value="1">Name (A-Z)</option>
-                                <option value="2">Name (Z-A)</option>
-                                <option value="3">Price Low to High</option>
-                                <option value="4">Price High to Low</option>
-                                <option value="5">Newest to Oldest</option>
-                                <option value="6">Oldest to Newest</option>
-                            </select>
+                        <div class="row g-0 mt-2">
+                            <div class="col-7 text-end pe-2" style="padding-top:7px">                             
+                                <label for="password" class="form-label">Filter By</label>
+                            </div>     
+                            <div class="col-2 pe-1">
+                                <select v-model="filterName" class="form-select shadow-none w-100">
+                                    <option value="1">Date</option>
+                                    <option value="2">Price</option>
+                                    <option value="3">Name</option>
+                                </select>
+                            </div>
+                            <div class="col-3">
+                                <select v-model="filterByAD" class="form-select shadow-none w-100">
+                                    <option value="1">Order By DESC</option>
+                                    <option value="2">Order By ASC</option>
+                                </select>
+                            </div>    
                         </div>
 
                     </div>
@@ -94,10 +101,8 @@ export default {
 
     data(){
         return{
-            title: '',
-            minRange: '',
-            maxRange: '',
-            orderBy: '',
+            filterName: '1',
+            filterByAD: '1',
         }
     },
 
@@ -108,8 +113,9 @@ export default {
     computed: {
 
         filterProducts: function(){
-            return this.filterProductsByName(this.filterProductsByCategory(this.filterProductsByRange(this.filterProductsByPrice(this.$store.getters.products))))
+            return this.filterProductsByCategory(this.filterProductsByPrice(this.$store.getters.products))
         },
+
     },
 
     methods: {
@@ -131,26 +137,32 @@ export default {
         },
 
         filterProductsByPrice: function(products){
-            const orderBy = this.orderBy;
+            const filterName = this.filterName;
+            const filterByAD = this.filterByAD;
             return products.sort((a, b) => {
 
-                if (orderBy === '1') {
-                return (a.title.toLowerCase() > b.title.toLowerCase()) ? 1 : -1;
+                if (filterName === '1' && filterByAD === '1') {
+                    return b.id - a.id;
                 }
-                else if (orderBy === '2') {
-                return (a.title.toLowerCase() < b.title.toLowerCase()) ? 1 : -1;
+
+                else if (filterName === '1' && filterByAD === '2') {
+                    return a.id - b.id;
                 }
-                else if (orderBy === '3') {
-                return a.price - b.price;
-                } 
-                else if (orderBy === '4') {
-                return b.price - a.price;
+
+                else if (filterName === '2' && filterByAD === '1') {
+                    return b.price - a.price;
                 }
-                else if (orderBy === '5') {
-                return b.id - a.id;
+
+                else if (filterName === '2' && filterByAD === '2') {
+                    return a.price - b.price;
                 }
-                else if (orderBy === '6') {
-                return a.id - b.id;
+
+                else if (filterName === '3' && filterByAD === '1') {
+                    return (a.title.toLowerCase() < b.title.toLowerCase()) ? 1 : -1;
+                }
+
+                else if (filterName === '3' && filterByAD === '2') {
+                    return (a.title.toLowerCase() > b.title.toLowerCase()) ? 1 : -1;
                 }
             });
         },

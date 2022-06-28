@@ -26,7 +26,7 @@
                     <SearchComponent/>
                 </div>
                 <div class="col-2 d-flex align-items-center">
-                    <a class="position-relative mx-auto" data-bs-toggle="offcanvas" data-bs-auto-close="outside" href="#offcanvasCartPanel" aria-expanded="false">
+                    <a class="position-relative mx-auto" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCartPanel">
                         <i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                             {{ cartCount }}
